@@ -1,0 +1,1257 @@
+/* ===== THEME VARIABLES ===== */
+:root {
+    --bg-body: #0a192f;
+    --bg-dark: #020b14;
+    --bg-base: #0a192f;
+    --bg-light: #112240;
+    --bg-card: #1d2d44;
+    --text-body: #8892b0;
+    --text-heading: #ccd6f6;
+    --text-white: #ffffff;
+    --text-gray: #8892b0;
+    --text-gray-light: #a8b2d8;
+    --border-subtle: rgba(100, 255, 218, 0.15);
+    --scrollbar-track: #0a192f;
+    --scrollbar-thumb: #1d2d44;
+    --glass-bg: rgba(17, 34, 64, 0.6);
+    --terminal-bg: #020b14;
+    --terminal-border: #1d2d44;
+    --map-bg: #020b14;
+    --progress-bg: #112240;
+    --nav-bg: rgba(10, 25, 47, 0.95);
+    --header-bg: #020b14;
+    --footer-bg: #020b14;
+
+    /* accent tokens (dark) */
+    --accent-primary: #64ffda;
+    --accent-secondary: #00d2ff;
+    --accent-hover-bg: rgba(100, 255, 218, 0.1);
+    --accent-active-bg: rgba(100, 255, 218, 0.15);
+}
+
+/* ─── LIGHT MODE — بالكامل نظام ألوان مختلف ─── */
+body.light-mode {
+    /* خلفيات */
+    --bg-body:   #f5f7fa;        /* أبيض مائل للرمادي الخفيف */
+    --bg-dark:   #ffffff;        /* أبيض نقي للهيدر/فوتر */
+    --bg-base:   #f5f7fa;
+    --bg-light:  #eaf0f8;        /* أزرق فاتح جداً للكروت الداخلية */
+    --bg-card:   #d6e4f0;        /* حدود وخلفيات ثانوية */
+
+    /* نصوص */
+    --text-body:       #374151;  /* رمادي داكن للمحتوى */
+    --text-heading:    #111827;  /* أسود شبه كامل للعناوين */
+    --text-white:      #111827;  /* بديل text-white */
+    --text-gray:       #4b5563;
+    --text-gray-light: #6b7280;
+
+    /* حدود */
+    --border-subtle: rgba(37, 99, 235, 0.18);
+
+    /* scrollbar */
+    --scrollbar-track: #eaf0f8;
+    --scrollbar-thumb: #b0c8e0;
+
+    /* كروت */
+    --glass-bg: rgba(255, 255, 255, 0.82);
+
+    /* ترمينال + ماب */
+    --terminal-bg:     #f0f5fb;
+    --terminal-border: #c8ddef;
+    --map-bg:          #e8f1fa;
+    --progress-bg:     #dce8f5;
+
+    /* nav + header + footer */
+    --nav-bg:    rgba(255, 255, 255, 0.97);
+    --header-bg: #ffffff;
+    --footer-bg: #ffffff;
+
+    /* accent tokens (light) — أزرق ملكي غامق */
+    --accent-primary:   #1d4ed8;        /* أزرق داكن */
+    --accent-secondary: #0369a1;        /* تركواز داكن */
+    --accent-hover-bg:  rgba(29, 78, 216, 0.08);
+    --accent-active-bg: rgba(29, 78, 216, 0.13);
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-body);
+    scroll-behavior: smooth;
+    transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: 'Tajawal', sans-serif;
+    color: var(--text-heading);
+    transition: color 0.35s ease;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #64ffda;
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    transition: all 0.4s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px -10px rgba(100, 255, 218, 0.25);
+    border-color: rgba(100, 255, 218, 0.45);
+}
+
+.gradient-text {
+    background: linear-gradient(to right, #64ffda, #00d2ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-container {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
+}
+
+.nav-container::-webkit-scrollbar {
+    display: none;
+}
+
+.nav-container.dragging {
+    cursor: grabbing;
+    user-select: none;
+}
+
+.nav-btn {
+    position: relative;
+    color: #ccd6f6;
+    transition: color 0.3s;
+    cursor: pointer;
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    font-size: 0.9rem;
+}
+
+.nav-btn:hover {
+    background: rgba(100, 255, 218, 0.1);
+    color: #64ffda;
+}
+
+.nav-btn.active {
+    background: rgba(100, 255, 218, 0.15);
+    color: #64ffda;
+    border-bottom: 2px solid #64ffda;
+    border-radius: 8px 8px 0 0;
+}
+
+.spa-section {
+    display: none;
+    animation: fadeIn 0.45s ease-out forwards;
+}
+
+.spa-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(14px)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
+.digital-font {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    transition: color 0.5s, text-shadow 0.5s;
+}
+
+.alert-red {
+    color: #ff4d4f;
+    text-shadow: 0 0 12px rgba(255, 77, 79, 0.7);
+}
+
+.alert-yellow {
+    color: #f39c12;
+    text-shadow: 0 0 12px rgba(243, 156, 18, 0.7);
+}
+
+.alert-green {
+    color: #64ffda;
+    text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+}
+
+/* Pulsing critical value */
+@keyframes blinkVal {
+
+    0%,
+    100% {
+        opacity: 1
+    }
+
+    50% {
+        opacity: 0.35
+    }
+}
+
+.blink-critical {
+    animation: blinkVal 0.8s linear infinite;
+}
+
+.pulse-ring {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #64ffda;
+    animation: pulsate 2s ease-out infinite;
+    opacity: 0.8;
+}
+
+@keyframes pulsate {
+    0% {
+        transform: scale(1);
+        opacity: 1
+    }
+
+    100% {
+        transform: scale(3);
+        opacity: 0
+    }
+}
+
+.terminal-log {
+    background: var(--terminal-bg);
+    border: 1px solid var(--terminal-border);
+    border-radius: 12px;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.terminal-entry {
+    border-bottom: 1px dashed rgba(100, 255, 218, 0.1);
+    padding: 5px 0;
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+.progress-bar-container {
+    width: 100%;
+    background-color: var(--progress-bg);
+    border-radius: 999px;
+    height: 10px;
+    overflow: hidden;
+    margin-top: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Map */
+.map-container {
+    position: relative;
+    background: var(--map-bg);
+    border-radius: 16px;
+    border: 1px solid var(--terminal-border);
+    height: 420px;
+    overflow: hidden;
+    background-image: radial-gradient(rgba(100, 255, 218, 0.08) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* ===== تعديل حركة المياه لتصبح من الجنوب (أسفل) للشمال (أعلى) ===== */
+.river-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    stroke: #00d2ff;
+    fill: none;
+    stroke-width: 6;
+    opacity: 0.5;
+    stroke-dasharray: 12 4;
+    animation: dash 20s linear infinite;
+}
+
+@keyframes dash {
+    to {
+        stroke-dashoffset: -160
+    }
+}
+
+.map-node {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: #64ffda;
+    border-radius: 50%;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 18px #64ffda;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.map-node:hover,
+.map-node.active-node {
+    transform: translate(-50%, -50%) scale(1.6);
+    background: #f39c12;
+    box-shadow: 0 0 22px #f39c12;
+}
+
+.map-node::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
+    border-radius: 50%;
+    border: 2px solid #64ffda;
+    animation: ping-slow 2s infinite;
+}
+
+.map-node.active-node::before {
+    border-color: #f39c12;
+}
+
+.map-node.node-warn {
+    background: #f39c12;
+    box-shadow: 0 0 18px #f39c12;
+}
+
+.map-node.node-crit {
+    background: #ef4444;
+    box-shadow: 0 0 22px #ef4444;
+    animation: blinkVal 0.8s linear infinite;
+}
+
+/* WQI Gauge */
+.wqi-ring {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/* Data table */
+.data-table th {
+    background: rgba(100, 255, 218, 0.08);
+    color: #64ffda;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 10px 14px;
+}
+
+.data-table td {
+    padding: 10px 14px;
+    font-size: 0.83rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.data-table tr:hover td {
+    background: rgba(100, 255, 218, 0.04);
+}
+
+/* Team */
+.team-img-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(to right, #64ffda, #00d2ff);
+    margin: 0 auto 15px;
+}
+
+.team-img-wrapper.dev {
+    background: linear-gradient(to right, #64ffda, #00d2ff);
+}
+
+.team-img-wrapper.data {
+    background: linear-gradient(to right, #c084fc, #8b5cf6);
+}
+
+.team-img-wrapper.search {
+    background: linear-gradient(to right, #f39c12, #e67e22);
+}
+
+.team-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #0a192f;
+    border: 3px solid #020b14;
+}
+
+.section-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 3rem 0;
+    color: #1d2d44;
+}
+
+.section-divider::before,
+.section-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgba(100, 255, 218, 0.2);
+}
+
+.section-divider:not(:empty)::before {
+    margin-left: 1rem;
+}
+
+.section-divider:not(:empty)::after {
+    margin-right: 1rem;
+}
+
+.sensor-card-alert {
+    border-color: rgba(239, 68, 68, 0.6) !important;
+    box-shadow: 0 0 18px rgba(239, 68, 68, 0.25);
+}
+
+.sensor-card-warn {
+    border-color: rgba(243, 156, 18, 0.6) !important;
+    box-shadow: 0 0 18px rgba(243, 156, 18, 0.2);
+}
+
+.node-popup {
+    position: absolute;
+    background: rgba(2, 11, 20, 0.95);
+    border: 1px solid rgba(100, 255, 218, 0.3);
+    border-radius: 12px;
+    padding: 10px 14px;
+    min-width: 180px;
+    z-index: 50;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    backdrop-filter: blur(8px);
+}
+
+.node-popup.visible {
+    opacity: 1;
+}
+
+.health-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: var(--bg-card);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.health-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s;
+}
+
+@keyframes emergencyPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
+    }
+
+    50% {
+        box-shadow: 0 0 25px rgba(239, 68, 68, 0.9);
+    }
+}
+
+.emergency-pulse {
+    animation: emergencyPulse 1s ease-in-out infinite;
+}
+
+@keyframes dronefly {
+    0% {
+        transform: translateX(-100%) translateY(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: translateX(0) translateY(-10px);
+    }
+
+    100% {
+        transform: translateX(100%) translateY(0);
+        opacity: 0;
+    }
+}
+
+.drone-anim {
+    animation: dronefly 2s ease-in-out forwards;
+}
+
+.tool-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.4s;
+}
+
+.tool-card:hover {
+    border-color: rgba(100, 255, 218, 0.35);
+    transform: translateY(-2px);
+}
+
+.stat-card-glow {
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card-glow::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(transparent, rgba(100, 255, 218, 0.05), transparent 30%);
+    animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.tti-overlay {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px dashed rgba(239, 68, 68, 0.5);
+    border-radius: 12px;
+    padding: 8px 16px;
+}
+
+.map-node.node-plastic {
+    background: #8b5cf6;
+    box-shadow: 0 0 18px #8b5cf6;
+}
+
+.map-node.node-plastic::before {
+    border-color: #8b5cf6;
+}
+
+/* ===== LIGHT MODE OVERRIDES ===== */
+
+/* ── هيكل الصفحة ── */
+body.light-mode header {
+    background-color: var(--header-bg) !important;
+    border-color: var(--bg-card) !important;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08) !important;
+}
+
+body.light-mode nav {
+    background: var(--nav-bg) !important;
+    border-color: var(--bg-card) !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07) !important;
+}
+
+body.light-mode footer {
+    background-color: var(--footer-bg) !important;
+    border-color: var(--bg-card) !important;
+}
+
+/* ── Nav Buttons ── */
+body.light-mode .nav-btn {
+    color: #374151;
+}
+body.light-mode .nav-btn:hover {
+    background: var(--accent-hover-bg);
+    color: var(--accent-primary);
+}
+body.light-mode .nav-btn.active {
+    background: var(--accent-active-bg);
+    color: var(--accent-primary);
+    border-bottom-color: var(--accent-primary);
+}
+/* override الأزرق والأخضر والبنفسجي في nav للـ light */
+body.light-mode .nav-btn.text-nile-blue    { color: #0369a1 !important; }
+body.light-mode .nav-btn.text-nile-emerald { color: #15803d !important; }
+body.light-mode .nav-btn.text-nile-accent  { color: #b45309 !important; }
+body.light-mode .nav-btn.text-purple-400   { color: #7c3aed !important; }
+body.light-mode .nav-btn.text-nile-cyan    { color: var(--accent-primary) !important; }
+
+/* ── Gradient text ── */
+body.light-mode .gradient-text {
+    background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ── نصوص عامة ── */
+body.light-mode .text-white {
+    color: var(--text-heading) !important;
+}
+body.light-mode .text-gray-300 { color: #4b5563 !important; }
+body.light-mode .text-gray-400 { color: #6b7280 !important; }
+body.light-mode .text-gray-500 { color: #9ca3af !important; }
+
+/* nile color overrides */
+body.light-mode .text-nile-cyan   { color: var(--accent-primary)   !important; }
+body.light-mode .text-nile-blue   { color: var(--accent-secondary)  !important; }
+body.light-mode .text-nile-accent { color: #b45309                  !important; }
+body.light-mode .text-nile-emerald{ color: #15803d                  !important; }
+body.light-mode .text-purple-400  { color: #7c3aed                  !important; }
+body.light-mode .text-purple-300  { color: #6d28d9                  !important; }
+body.light-mode .text-nile-cyan\/80 { color: rgba(29,78,216,0.8)    !important; }
+
+/* ── خلفيات Nile ── */
+body.light-mode [class*="bg-nile-dark"] {
+    background-color: #f0f5fb !important;
+}
+body.light-mode [class*="bg-nile-light"] {
+    background-color: var(--bg-light) !important;
+}
+body.light-mode [class*="bg-nile-base"] {
+    background-color: var(--bg-base) !important;
+}
+body.light-mode [class*="bg-nile-card"] {
+    background-color: var(--bg-card) !important;
+}
+
+/* ── حدود ── */
+body.light-mode [class*="border-nile-card"]  { border-color: var(--bg-card) !important; }
+body.light-mode [class*="border-nile-cyan"]  { border-color: rgba(29,78,216,0.3) !important; }
+
+/* ── Glass Card ── */
+body.light-mode .glass-card {
+    background: var(--glass-bg);
+    border: 1px solid rgba(29,78,216,0.14);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+body.light-mode .glass-card:hover {
+    box-shadow: 0 16px 40px -10px rgba(29,78,216,0.18);
+    border-color: rgba(29,78,216,0.35);
+}
+
+/* ── Tool Card ── */
+body.light-mode .tool-card {
+    background: var(--glass-bg);
+    border: 1px solid rgba(29,78,216,0.14);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+body.light-mode .tool-card:hover {
+    border-color: rgba(29,78,216,0.35);
+}
+
+/* ── stat-card-glow spin overlay ── */
+body.light-mode .stat-card-glow::after {
+    background: conic-gradient(transparent, rgba(29,78,216,0.04), transparent 30%);
+}
+
+/* ── Terminal / Log ── */
+body.light-mode .terminal-log {
+    background: var(--terminal-bg);
+    border-color: var(--terminal-border);
+}
+body.light-mode .terminal-entry {
+    border-bottom-color: rgba(29,78,216,0.1);
+}
+/* terminal text colors */
+body.light-mode .terminal-log .text-nile-cyan   { color: var(--accent-primary)   !important; }
+body.light-mode .terminal-log .text-yellow-400  { color: #92400e                 !important; }
+body.light-mode .terminal-log .text-red-400     { color: #b91c1c                 !important; }
+body.light-mode .terminal-log .text-gray-500    { color: #6b7280                 !important; }
+
+/* ── Map Container ── */
+body.light-mode .map-container {
+    background-image: radial-gradient(rgba(29,78,216,0.08) 1px, transparent 1px);
+}
+body.light-mode .map-node {
+    background: var(--accent-primary);
+    box-shadow: 0 0 14px rgba(29,78,216,0.5);
+}
+body.light-mode .map-node::before {
+    border-color: var(--accent-primary);
+}
+body.light-mode .map-node:hover,
+body.light-mode .map-node.active-node {
+    background: #b45309;
+    box-shadow: 0 0 18px rgba(180,83,9,0.6);
+}
+body.light-mode .map-node.active-node::before { border-color: #b45309; }
+body.light-mode .map-node.node-warn {
+    background: #d97706;
+    box-shadow: 0 0 14px rgba(217,119,6,0.5);
+}
+body.light-mode .map-node.node-crit {
+    background: #dc2626;
+    box-shadow: 0 0 18px rgba(220,38,38,0.6);
+}
+body.light-mode .map-node.node-plastic {
+    background: #7c3aed;
+    box-shadow: 0 0 14px rgba(124,58,237,0.5);
+}
+body.light-mode .map-node.node-plastic::before { border-color: #7c3aed; }
+body.light-mode .river-svg { stroke: #0369a1; opacity: 0.45; }
+
+/* ── Node Popup ── */
+body.light-mode .node-popup {
+    background: rgba(255,255,255,0.97);
+    border-color: rgba(29,78,216,0.28);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+/* ── Data Table ── */
+body.light-mode .data-table th {
+    background: rgba(29,78,216,0.07);
+    color: var(--accent-primary);
+}
+body.light-mode .data-table td {
+    border-bottom-color: rgba(0,0,0,0.06);
+    color: var(--text-body);
+}
+body.light-mode .data-table tr:hover td {
+    background: rgba(29,78,216,0.04);
+}
+
+/* ── Progress bars ── */
+body.light-mode .progress-bar-container {
+    border-color: rgba(0,0,0,0.05);
+}
+
+/* ── Section divider ── */
+body.light-mode .section-divider::before,
+body.light-mode .section-divider::after {
+    border-bottom-color: rgba(29,78,216,0.18);
+}
+
+/* ── Alert colors في light mode (أغمق) ── */
+body.light-mode .alert-green {
+    color: #065f46;
+    text-shadow: none;
+}
+body.light-mode .alert-yellow {
+    color: #92400e;
+    text-shadow: none;
+}
+body.light-mode .alert-red {
+    color: #b91c1c;
+    text-shadow: none;
+}
+body.light-mode .digital-font.alert-green  { color: #065f46; text-shadow: none; }
+body.light-mode .digital-font.alert-yellow { color: #92400e; text-shadow: none; }
+body.light-mode .digital-font.alert-red    { color: #b91c1c; text-shadow: none; }
+
+/* ── Team cards ── */
+body.light-mode .team-img {
+    background-color: #f5f7fa;
+    border-color: #ffffff;
+}
+
+/* ── DECA logo box in nav ── */
+body.light-mode .w-10.bg-nile-light {
+    background-color: #eaf0f8 !important;
+    border-color: rgba(29,78,216,0.4) !important;
+    color: var(--accent-primary) !important;
+    box-shadow: 0 0 8px rgba(29,78,216,0.2) !important;
+}
+
+/* ── bg-nile-light/80 info badges in header ── */
+body.light-mode .bg-nile-light\/80 {
+    background-color: #eaf0f8 !important;
+}
+body.light-mode .bg-nile-light\/50 {
+    background-color: rgba(234,240,248,0.7) !important;
+}
+
+/* ── scrollbar thumb hover ── */
+body.light-mode ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-primary);
+}
+
+/* ── Theme Toggle Button ── */
+.theme-toggle-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(100, 255, 218, 0.1);
+    border: 1px solid rgba(100, 255, 218, 0.5);
+    color: #64ffda;
+    padding: 0.375rem 0.75rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    box-shadow: 0 0 10px rgba(100, 255, 218, 0.15);
+    flex-shrink: 0;
+}
+.theme-toggle-btn:hover {
+    background: #64ffda;
+    color: #020b14;
+}
+body.light-mode .theme-toggle-btn {
+    background: rgba(29,78,216,0.08);
+    border: 1px solid rgba(29,78,216,0.4);
+    color: var(--accent-primary);
+    box-shadow: none;
+}
+body.light-mode .theme-toggle-btn:hover {
+    background: var(--accent-primary);
+    color: #ffffff;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   ── SIMULATOR SECTION — Dark Mode (default) overrides ──
+   Flips hardcoded light Tailwind classes in Arabic #simulator
+   to the dark dashboard palette when NOT in light-mode.
+   ══════════════════════════════════════════════════════════════════ */
+
+/* SYSTEM ONLINE badge container */
+body:not(.light-mode) #simulator .flex.items-center.gap-2.bg-white {
+    background-color: #112240 !important;
+    border-color: rgba(100, 255, 218, 0.35) !important;
+}
+body:not(.light-mode) #simulator .flex.items-center.gap-2.bg-white .text-teal-700 {
+    color: #64ffda !important;
+}
+
+/* 9 Sensor cards */
+body:not(.light-mode) #simulator .bg-white.p-2.rounded-2xl {
+    background-color: #112240 !important;
+    border-color: #1d2d44 !important;
+}
+body:not(.light-mode) #simulator .bg-white.p-2.rounded-2xl .text-gray-500 { color: #8892b0 !important; }
+body:not(.light-mode) #simulator .bg-white.p-2.rounded-2xl .text-gray-400 { color: #64748b !important; }
+body:not(.light-mode) #simulator .bg-white.p-2.rounded-2xl .text-teal-600 { color: #64ffda !important; }
+
+/* Sensor Health panel */
+body:not(.light-mode) #simulator .bg-white.p-3.rounded-xl {
+    background-color: #112240 !important;
+    border-color: #1d2d44 !important;
+}
+body:not(.light-mode) #simulator .bg-white.p-3.rounded-xl .text-gray-600 { color: #8892b0 !important; }
+body:not(.light-mode) #simulator .bg-white.p-3.rounded-xl .text-teal-600 { color: #64ffda !important; }
+body:not(.light-mode) #simulator .health-bar-bg { background: #1d2d44 !important; }
+
+/* Deploy Drone button */
+body:not(.light-mode) #simulator .bg-teal-50 {
+    background-color: rgba(100, 255, 218, 0.08) !important;
+    border-color: rgba(100, 255, 218, 0.3) !important;
+    color: #64ffda !important;
+}
+body:not(.light-mode) #simulator .bg-teal-50:hover { background-color: rgba(100, 255, 218, 0.15) !important; }
+
+/* TTI overlay */
+body:not(.light-mode) #simulator .tti-overlay {
+    background: rgba(30, 10, 10, 0.7) !important;
+    border-color: rgba(239, 68, 68, 0.5) !important;
+}
+
+/* Terminal */
+body:not(.light-mode) #simulator #terminal-container {
+    background: #020b14 !important;
+    border-color: #1d2d44 !important;
+}
+body:not(.light-mode) #simulator #terminal-container .text-teal-700 { color: #64ffda !important; }
+body:not(.light-mode) #simulator #log-content { color: #64ffda !important; }
+
+/* Controls panel (inline light bg) */
+body:not(.light-mode) #simulator .glass-card[style*="f8fafc"],
+body:not(.light-mode) #simulator .glass-card[style*="e2e8f0"] {
+    background: rgba(17, 34, 64, 0.6) !important;
+    border-color: rgba(100, 255, 218, 0.15) !important;
+}
+body:not(.light-mode) #simulator .text-gray-600.uppercase { color: #8892b0 !important; }
+
+/* Scenario buttons */
+body:not(.light-mode) #simulator .bg-gray-50 {
+    background-color: #112240 !important;
+    border-color: #1d2d44 !important;
+    color: #ccd6f6 !important;
+}
+body:not(.light-mode) #simulator .bg-gray-50:hover { background-color: #1d2d44 !important; }
+body:not(.light-mode) #simulator .bg-red-50 {
+    background-color: rgba(239,68,68,0.08) !important;
+    border-color: rgba(239,68,68,0.3) !important;
+    color: #fca5a5 !important;
+}
+body:not(.light-mode) #simulator .bg-red-50:hover { background-color: rgba(239,68,68,0.15) !important; }
+body:not(.light-mode) #simulator .bg-yellow-50 {
+    background-color: rgba(234,179,8,0.08) !important;
+    border-color: rgba(234,179,8,0.3) !important;
+    color: #fde68a !important;
+}
+body:not(.light-mode) #simulator .bg-yellow-50:hover { background-color: rgba(234,179,8,0.15) !important; }
+body:not(.light-mode) #simulator .bg-green-50 {
+    background-color: rgba(34,197,94,0.08) !important;
+    border-color: rgba(34,197,94,0.3) !important;
+    color: #86efac !important;
+}
+body:not(.light-mode) #simulator .bg-green-50:hover { background-color: rgba(34,197,94,0.15) !important; }
+body:not(.light-mode) #simulator .bg-purple-50 {
+    background-color: rgba(168,85,247,0.08) !important;
+    border-color: rgba(168,85,247,0.3) !important;
+    color: #d8b4fe !important;
+}
+body:not(.light-mode) #simulator .bg-purple-50:hover { background-color: rgba(168,85,247,0.15) !important; }
+
+/* Season buttons */
+body:not(.light-mode) #simulator .bg-blue-50 {
+    background-color: rgba(59,130,246,0.08) !important;
+    border-color: rgba(59,130,246,0.3) !important;
+    color: #93c5fd !important;
+}
+body:not(.light-mode) #simulator .bg-blue-50:hover { background-color: rgba(59,130,246,0.15) !important; }
+body:not(.light-mode) #simulator .bg-orange-50 {
+    background-color: rgba(249,115,22,0.08) !important;
+    border-color: rgba(249,115,22,0.3) !important;
+    color: #fdba74 !important;
+}
+body:not(.light-mode) #simulator .bg-orange-50:hover { background-color: rgba(249,115,22,0.15) !important; }
+
+/* Mute button */
+body:not(.light-mode) #simulator .bg-gray-100 {
+    background-color: #1d2d44 !important;
+    border-color: #2d4060 !important;
+    color: #8892b0 !important;
+}
+body:not(.light-mode) #simulator .bg-gray-100:hover { color: #ccd6f6 !important; }
+
+/* WQI panel */
+body:not(.light-mode) #simulator .bg-white.rounded-2xl {
+    background-color: #112240 !important;
+    border-color: #1d2d44 !important;
+}
+body:not(.light-mode) #simulator .bg-white.rounded-2xl .text-gray-500 { color: #8892b0 !important; }
+body:not(.light-mode) #simulator .bg-white.rounded-2xl .text-sky-600 { color: #64ffda !important; }
+body:not(.light-mode) #simulator .bg-white.rounded-2xl .text-gray-400 { color: #64748b !important; }
+body:not(.light-mode) #simulator #wqi-label { color: #64ffda !important; }
+
+/* Map area */
+body:not(.light-mode) #simulator #map-area {
+    background-color: #020b14 !important;
+    background-image: radial-gradient(rgba(100,255,218,0.08) 1px, transparent 1px) !important;
+    border-color: #1d2d44 !important;
+}
+body:not(.light-mode) #simulator .map-node .bg-white\/95 {
+    background: rgba(2,11,20,0.92) !important;
+    border-color: rgba(100,255,218,0.3) !important;
+    color: #64ffda !important;
+}
+body:not(.light-mode) #simulator .map-node .text-sky-700 { color: #64ffda !important; }
+body:not(.light-mode) #simulator #map-area > .absolute.top-2 {
+    background: rgba(2,11,20,0.85) !important;
+    border-color: #1d2d44 !important;
+}
+body:not(.light-mode) #simulator #map-area > .absolute.top-2 .text-gray-700 { color: #8892b0 !important; }
+body:not(.light-mode) #simulator .absolute.bottom-2.right-2 {
+    background: rgba(2,11,20,0.85) !important;
+    border-color: rgba(100,255,218,0.3) !important;
+    color: #64ffda !important;
+}
+body:not(.light-mode) #simulator .river-svg { stroke: #00d2ff !important; opacity: 0.5 !important; }
+
+/* NORMAL badge */
+body:not(.light-mode) #simulator #sys-status-badge {
+    background-color: rgba(34,197,94,0.1) !important;
+    border-color: rgba(34,197,94,0.4) !important;
+    color: #4ade80 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   ── SIMULATOR SECTION — Light Mode overrides ──
+   Flips dark nile-* classes (used in both Arabic & English versions)
+   to the light dashboard palette shown in the screenshot.
+   ══════════════════════════════════════════════════════════════════ */
+
+/* SYSTEM ONLINE badge (dark bg → white) */
+body.light-mode #simulator .flex.items-center.gap-2[class*="bg-\[#020b14\]"],
+body.light-mode #simulator .flex.items-center.gap-2[style*="020b14"] {
+    background-color: #ffffff !important;
+    border-color: rgba(20, 184, 166, 0.35) !important;
+}
+body.light-mode #simulator .text-nile-cyan.font-mono { color: #0f766e !important; }
+
+/* 9 Sensor cards — dark bg → white */
+body.light-mode #simulator [class*="bg-\[#020b14\]"].p-2.rounded-2xl {
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
+}
+body.light-mode #simulator [class*="bg-\[#020b14\]"].p-2.rounded-2xl .text-gray-400 { color: #6b7280 !important; }
+body.light-mode #simulator [class*="bg-\[#020b14\]"].p-2.rounded-2xl .text-gray-500 { color: #9ca3af !important; }
+body.light-mode #simulator [class*="bg-\[#020b14\]"].p-2.rounded-2xl .alert-green { color: #0f766e !important; text-shadow: none !important; }
+
+/* Sensor Health panel */
+body.light-mode #simulator [class*="bg-\[#020b14\]"].p-3.rounded-xl {
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
+}
+body.light-mode #simulator [class*="bg-\[#020b14\]"].p-3.rounded-xl .text-gray-400 { color: #6b7280 !important; }
+body.light-mode #simulator [class*="bg-\[#020b14\]"].p-3.rounded-xl .text-nile-cyan { color: #0f766e !important; }
+body.light-mode #simulator .health-bar-bg { background: #e5e7eb !important; }
+body.light-mode #simulator .health-bar-fill.bg-nile-cyan { background-color: #14b8a6 !important; }
+
+/* Deploy Drone button */
+body.light-mode #simulator [class*="bg-nile-cyan\/10"].border[class*="border-nile-cyan"] {
+    background-color: #f0fdfa !important;
+    border-color: #99f6e4 !important;
+    color: #0f766e !important;
+}
+body.light-mode #simulator [class*="bg-nile-cyan\/10"].border[class*="border-nile-cyan"]:hover {
+    background-color: #ccfbf1 !important;
+}
+
+/* Terminal */
+body.light-mode #simulator #terminal-container {
+    background: #f0fdf4 !important;
+    border-color: #bbf7d0 !important;
+}
+body.light-mode #simulator #terminal-container .text-nile-cyan { color: #0f766e !important; }
+body.light-mode #simulator #log-content { color: #166534 !important; }
+
+/* Controls panel glass-card */
+body.light-mode #simulator .glass-card:not([style*="min-height"]) {
+    background: #f8fafc !important;
+    border-color: #e2e8f0 !important;
+}
+body.light-mode #simulator #active-node-label { color: #0f766e !important; }
+
+/* Scenario buttons */
+body.light-mode #simulator [class*="bg-nile-base"],
+body.light-mode #simulator [class*="bg-nile-light"] {
+    background-color: #f9fafb !important;
+    border-color: #d1d5db !important;
+    color: #1f2937 !important;
+}
+body.light-mode #simulator [class*="bg-nile-base"]:hover,
+body.light-mode #simulator [class*="bg-nile-light"]:hover { background-color: #f3f4f6 !important; }
+
+body.light-mode #simulator [class*="bg-red-900"] {
+    background-color: #fef2f2 !important;
+    border-color: #fecaca !important;
+    color: #991b1b !important;
+}
+body.light-mode #simulator [class*="bg-red-900"]:hover { background-color: #fee2e2 !important; }
+
+body.light-mode #simulator [class*="bg-yellow-900"] {
+    background-color: #fefce8 !important;
+    border-color: #fde68a !important;
+    color: #92400e !important;
+}
+body.light-mode #simulator [class*="bg-yellow-900"]:hover { background-color: #fef9c3 !important; }
+
+body.light-mode #simulator [class*="bg-green-900"] {
+    background-color: #f0fdf4 !important;
+    border-color: #bbf7d0 !important;
+    color: #14532d !important;
+}
+body.light-mode #simulator [class*="bg-green-900"]:hover { background-color: #dcfce7 !important; }
+
+body.light-mode #simulator [class*="bg-purple-900"] {
+    background-color: #faf5ff !important;
+    border-color: #e9d5ff !important;
+    color: #581c87 !important;
+}
+body.light-mode #simulator [class*="bg-purple-900"]:hover { background-color: #f3e8ff !important; }
+
+/* Season buttons */
+body.light-mode #simulator [class*="bg-blue-900"] {
+    background-color: #eff6ff !important;
+    border-color: #bfdbfe !important;
+    color: #1e40af !important;
+}
+body.light-mode #simulator [class*="bg-blue-900"]:hover { background-color: #dbeafe !important; }
+
+body.light-mode #simulator [class*="bg-green-900"][id*="spring"] {
+    background-color: #f0fdf4 !important;
+    border-color: #bbf7d0 !important;
+    color: #14532d !important;
+}
+
+body.light-mode #simulator [class*="bg-orange-900"] {
+    background-color: #fff7ed !important;
+    border-color: #fed7aa !important;
+    color: #9a3412 !important;
+}
+body.light-mode #simulator [class*="bg-orange-900"]:hover { background-color: #ffedd5 !important; }
+
+body.light-mode #simulator [class*="bg-yellow-900"][id*="autumn"] {
+    background-color: #fefce8 !important;
+    border-color: #fde68a !important;
+    color: #92400e !important;
+}
+
+/* Mute + Emergency buttons */
+body.light-mode #simulator .bg-nile-card {
+    background-color: #f1f5f9 !important;
+    border-color: rgba(20,184,166,0.2) !important;
+    color: #4b5563 !important;
+}
+body.light-mode #simulator [class*="bg-red-900"][id="emergency-btn"] {
+    background-color: #fef2f2 !important;
+    border-color: #fca5a5 !important;
+    color: #991b1b !important;
+}
+
+/* WQI panel */
+body.light-mode #simulator .bg-nile-dark.rounded-2xl {
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
+}
+body.light-mode #simulator .bg-nile-dark.rounded-2xl .text-gray-400 { color: #6b7280 !important; }
+body.light-mode #simulator .bg-nile-dark.rounded-2xl .text-nile-cyan { color: #0f766e !important; }
+body.light-mode #simulator #wqi-label { color: #0f766e !important; }
+body.light-mode #simulator #wqi-circle { stroke: #0ea5e9 !important; }
+body.light-mode #simulator #val-wqi { color: #0369a1 !important; }
+
+/* Map area */
+body.light-mode #simulator #map-area {
+    background-color: #e8f4f8 !important;
+    background-image: radial-gradient(rgba(0,102,153,0.12) 1px, transparent 1px) !important;
+    border-color: #b0d4e8 !important;
+}
+body.light-mode #simulator .map-node [class*="bg-nile-dark"] {
+    background: rgba(255,255,255,0.95) !important;
+    border-color: #bae0f0 !important;
+    color: #0369a1 !important;
+}
+body.light-mode #simulator .map-node .text-nile-cyan { color: #0369a1 !important; }
+body.light-mode #simulator #map-area > .absolute.top-2[class*="bg-nile-dark"] {
+    background: rgba(255,255,255,0.9) !important;
+    border-color: #d1d5db !important;
+    color: #374151 !important;
+}
+body.light-mode #simulator #map-area > .absolute.bottom-2 {
+    background: rgba(255,255,255,0.9) !important;
+    border-color: #bae0f0 !important;
+    color: #0369a1 !important;
+}
+body.light-mode #simulator .river-svg { stroke: #0369a1 !important; opacity: 0.7 !important; }
+
+/* Map node colors in light mode */
+body.light-mode #simulator .map-node {
+    background: #0ea5e9 !important;
+    box-shadow: 0 0 14px #0ea5e9 !important;
+}
+body.light-mode #simulator .map-node::before { border-color: #0ea5e9 !important; }
+body.light-mode #simulator .map-node:hover,
+body.light-mode #simulator .map-node.active-node {
+    background: #f39c12 !important;
+    box-shadow: 0 0 22px #f39c12 !important;
+}
+body.light-mode #simulator .map-node.active-node::before { border-color: #f39c12 !important; }
+body.light-mode #simulator .map-node.node-warn { background: #f39c12 !important; box-shadow: 0 0 18px #f39c12 !important; }
+body.light-mode #simulator .map-node.node-crit { background: #ef4444 !important; box-shadow: 0 0 22px #ef4444 !important; }
+body.light-mode #simulator .map-node.node-plastic { background: #a855f7 !important; box-shadow: 0 0 14px #a855f7 !important; }
+body.light-mode #simulator .map-node.node-plastic::before { border-color: #a855f7 !important; }
+
+/* NORMAL/ALERT badge */
+body.light-mode #simulator #sys-status-badge {
+    background-color: #dcfce7 !important;
+    border-color: rgba(22,163,74,0.5) !important;
+    color: #15803d !important;
+}
+
+/* Chart glass-card stays light in light mode (already glass-card handled) */
+body.light-mode #simulator .glass-card[style*="min-height"] {
+    background: rgba(255,255,255,0.82) !important;
+    border-color: rgba(29,78,216,0.14) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   ── LAWS SECTION — Dark Mode (default) overrides ──
+   ══════════════════════════════════════════════════════════════════ */
+body:not(.light-mode) #laws .bg-white {
+    background-color: #0a192f !important;
+    box-shadow: 0 0 20px rgba(100,255,218,0.05) !important;
+}
+body:not(.light-mode) #laws .bg-amber-50 {
+    background-color: #0a192f !important;
+    box-shadow: 0 0 20px rgba(243,156,18,0.05) !important;
+}
+body:not(.light-mode) #laws .border-gray-200 { border-color: #1d2d44 !important; }
+body:not(.light-mode) #laws .border-amber-200 { border-color: #1d2d44 !important; }
+body:not(.light-mode) #laws .bg-nile-cyan\/15 { background-color: rgba(100,255,218,0.10) !important; }
+body:not(.light-mode) #laws .bg-amber-100 { background-color: rgba(243,156,18,0.10) !important; }
+body:not(.light-mode) #laws .text-teal-700 { color: #64ffda !important; }
+body:not(.light-mode) #laws .text-amber-700 { color: #f39c12 !important; }
+body:not(.light-mode) #laws .text-teal-600 { color: #64ffda !important; }
+body:not(.light-mode) #laws .text-amber-600 { color: #f39c12 !important; }
+body:not(.light-mode) #laws .text-teal-500 { color: #64ffda !important; }
+body:not(.light-mode) #laws .text-amber-500 { color: #f39c12 !important; }
+body:not(.light-mode) #laws .text-gray-600 { color: #8892b0 !important; }
+body:not(.light-mode) #laws .text-gray-500 { color: #6b7280 !important; }
+body:not(.light-mode) #laws .text-gray-900 { color: #ccd6f6 !important; }
+
+/* ===== DECA CONTENT PROTECTION ===== */
+/* Disable pointer events & dragging on all images */
+img {
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* Disable text selection across the page */
+body, p, h1, h2, h3, h4, h5, h6, span, a, li, td, th, div {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Allow text selection inside inputs & textareas only */
+input, textarea, [contenteditable="true"] {
+    user-select: text;
+    -webkit-user-select: text;
+}

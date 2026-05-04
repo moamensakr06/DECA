@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DECA | Nile Water Sustainability</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Cairo', 'sans-serif'], heading: ['Tajawal', 'sans-serif'], mono: ['Courier New', 'monospace'] },
+                    colors: {
+                        nile: {
+                            dark: '#020b14', base: '#0a192f', light: '#112240', card: '#1d2d44',
+                            cyan: '#64ffda', blue: '#00d2ff', accent: '#f39c12',
+                            emerald: '#2ecc71', plastic: '#8b5cf6', purple: '#c084fc'
+                        }
+                    },
+                    animation: { 'float': 'float 6s ease-in-out infinite', 'pulse-slow': 'pulse 3s cubic-bezier(0.4,0,0.6,1) infinite', 'ping-slow': 'ping 2s cubic-bezier(0,0,0.2,1) infinite' },
+                    keyframes: { float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } } }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body class="antialiased flex flex-col min-h-screen">
+    <!-- ===== HEADER ===== -->
+    <header class="bg-nile-dark border-b border-nile-card py-6 px-6 relative z-50 shadow-2xl overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-nile-cyan/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-nile-blue/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3"></div>
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
+            <div class="flex-shrink-0 flex items-center justify-center">
+                <img src="./logo.jpg" alt="Damanhour University Logo"
+                    class="h-20 md:h-24 w-auto max-w-[250px] object-contain rounded-xl shadow-lg border border-nile-cyan/20 bg-black/40 p-1"
+                    onerror="this.src='https://via.placeholder.com/250x100?text=Damanhour+University'">
+            </div>
+            <div class="text-center flex-grow space-y-3">
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-black text-white tracking-wide drop-shadow-md">Damanhour University — Faculty of Engineering</h2>
+                    <h3 class="text-md md:text-lg gradient-text font-bold mt-2 inline-block px-4 py-1 bg-nile-light/50 rounded-full border border-nile-cyan/20">
+                        Research Project: Nile Water Sustainability & Smart Solutions</h3>
+                </div>
+                <div class="flex flex-wrap justify-center gap-2 md:gap-4 text-xs md:text-sm text-gray-300 mt-4">
+                    <div class="bg-nile-light/80 px-4 py-2 rounded-lg border border-nile-card shadow-sm flex items-center gap-2">
+                        <i class="fa-solid fa-building-columns text-nile-cyan"></i><span>University President: <strong class="text-white">Prof. Ilhami Trabis</strong></span>
+                    </div>
+                    <div class="bg-nile-light/80 px-4 py-2 rounded-lg border border-nile-card shadow-sm flex items-center gap-2">
+                        <i class="fa-solid fa-user-tie text-nile-cyan"></i><span>Dean: <strong class="text-white">Prof. Mohamed Khairat</strong></span>
+                    </div>
+                    <div class="bg-nile-light/80 px-4 py-2 rounded-lg border border-nile-card shadow-sm flex items-center gap-2">
+                        <i class="fa-solid fa-chalkboard-user text-nile-cyan"></i><span>Supervisor: <strong class="text-white">Dr. Emad El-Hout</strong></span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-shrink-0 flex items-center justify-center">
+                <img src="./logo1.png" alt="Faculty of Engineering Logo"
+                    class="h-28 md:h-32 w-28 md:w-32 object-cover bg-white/5 rounded-full border border-nile-cyan/30 p-2 shadow-lg"
+                    onerror="this.src='https://via.placeholder.com/100?text=Engineering'">
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== NAV (8 Tabs) ===== -->
+    <nav class="bg-nile-base/95 backdrop-blur-xl sticky top-0 z-40 border-b border-nile-card shadow-lg">
+        <div class="container mx-auto px-4 py-2 flex items-center gap-4">
+            <!-- DECA block with buttons below -->
+            <div class="animate-float shrink-0 hidden lg:flex flex-col items-center border-x border-nile-card px-4 py-1 gap-1">
+                <!-- DECA name row -->
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-nile-light rounded-xl border border-nile-cyan flex items-center justify-center text-nile-cyan text-base shadow-[0_0_10px_rgba(100,255,218,0.4)]">
+                        <i class="fa-solid fa-water"></i>
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <h1 class="text-lg font-black text-white tracking-widest leading-none">DECA</h1>
+                        <span class="text-[7.5px] text-nile-cyan font-bold opacity-80 whitespace-nowrap">(Damanhour Engineering Cyber-Aqua)</span>
+                    </div>
+                </div>
+                <!-- Buttons row: lang (left) | theme (right) in LTR -->
+                <div class="flex items-center justify-between w-full gap-2">
+                    <!-- Language Switcher - left in LTR -->
+                    <button onclick="switchToArabic()" title="Switch to Arabic"
+                        class="flex items-center gap-1 bg-nile-cyan/10 border border-nile-cyan/50 text-nile-cyan px-2 py-1 rounded-lg hover:bg-nile-cyan hover:text-nile-dark transition font-bold text-xs shadow-[0_0_10px_rgba(100,255,218,0.15)]">
+                        <i class="fa-solid fa-language text-xs"></i>
+                        <span>EN / ع</span>
+                    </button>
+                    <!-- Theme Toggle - right in LTR -->
+                    <button id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Theme" class="theme-toggle-btn !text-xs !px-2 !py-1">
+                        <i id="themeIcon" class="fa-solid fa-sun text-xs"></i>
+                        <span id="themeLabel">Light</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="nav-container flex-grow flex items-center gap-2 py-1">
+                <a class="nav-btn active" data-target="main_home"><i class="fa-solid fa-house"></i> Home</a>
+                <a class="nav-btn" data-target="laws"><i class="fa-solid fa-scale-balanced"></i> Legal Framework</a>
+                <a class="nav-btn" data-target="home"><i class="fa-solid fa-chart-pie"></i> Water Crisis</a>
+                <a class="nav-btn" data-target="pollution"><i class="fa-solid fa-biohazard"></i> Environmental Pollution</a>
+                <a class="nav-btn" data-target="rationalization_treatment"><i class="fa-solid fa-recycle"></i> Conservation & Treatment</a>
+                <a class="nav-btn text-nile-blue" data-target="iot_ai"><i class="fa-solid fa-network-wired"></i> Advanced Technologies</a>
+                <a class="nav-btn bg-nile-cyan/10 border border-nile-cyan/50 text-nile-cyan shadow-[0_0_10px_rgba(100,255,218,0.2)]" data-target="simulator"><i class="fa-solid fa-desktop"></i> Simulator</a>
+                <a class="nav-btn text-nile-emerald border border-nile-emerald/30" data-target="tools"><i class="fa-solid fa-toolbox"></i> Interactive Tools</a>
+                <a class="nav-btn text-nile-accent" data-target="roadmap_refs"><i class="fa-solid fa-map-location-dot"></i> Recommendations & References</a>
+                <a class="nav-btn text-purple-400 border border-purple-400/30" data-target="team"><i class="fa-solid fa-users"></i> Team</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== MAIN ===== -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+
+        <!-- ============================================================ -->
+        <!-- 0. MAIN HOME                                                  -->
+        <!-- ============================================================ -->
+        <section id="main_home" class="spa-section active">
+            <div class="py-6">
+
+                <!-- Hero Title -->
+                <div class="text-center mb-10 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-nile-cyan/5 to-transparent rounded-3xl pointer-events-none"></div>
+                    <div class="relative z-10 py-8">
+                        <div class="flex items-center justify-center gap-3 mb-4">
+                            <div class="w-1 h-12 bg-nile-cyan rounded-full"></div>
+                            <h2 class="text-4xl md:text-5xl font-black text-white leading-tight">The <span class="gradient-text">Nile River</span></h2>
+                            <div class="w-1 h-12 bg-nile-cyan rounded-full"></div>
+                        </div>
+                        <p class="text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                            The eternal artery of life — flowing from the heart of Africa to the Mediterranean, carrying the history of civilizations and the hope of millions.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Stat Cards -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 max-w-6xl mx-auto">
+                    <div class="glass-card stat-card-glow p-5 text-center border-t-4 border-t-nile-cyan">
+                        <i class="fa-solid fa-ruler-horizontal text-nile-cyan text-2xl mb-2"></i>
+                        <div class="text-3xl font-black text-white">6,650</div>
+                        <p class="text-xs text-gray-400 mt-1">Total Length (km)</p>
+                    </div>
+                    <div class="glass-card stat-card-glow p-5 text-center border-t-4 border-t-nile-blue">
+                        <i class="fa-solid fa-flag text-nile-blue text-2xl mb-2"></i>
+                        <div class="text-3xl font-black text-white">11</div>
+                        <p class="text-xs text-gray-400 mt-1">Nile Basin Countries</p>
+                    </div>
+                    <div class="glass-card stat-card-glow p-5 text-center border-t-4 border-t-nile-accent">
+                        <i class="fa-solid fa-map text-nile-accent text-2xl mb-2"></i>
+                        <div class="text-3xl font-black text-white">3.4M</div>
+                        <p class="text-xs text-gray-400 mt-1">Basin Area (km²)</p>
+                    </div>
+                    <div class="glass-card stat-card-glow p-5 text-center border-t-4 border-t-nile-emerald">
+                        <i class="fa-solid fa-layer-group text-nile-emerald text-2xl mb-2"></i>
+                        <div class="text-3xl font-black text-white">110M</div>
+                        <p class="text-xs text-gray-400 mt-1">Tons of Silt / Year</p>
+                    </div>
+                </div>
+
+                <!-- Video -->
+                <div class="glass-card p-4 mb-6 max-w-6xl mx-auto">
+                    <div class="flex items-center gap-2 mb-4 border-b border-nile-card pb-3">
+                        <i class="fa-brands fa-youtube text-red-500 text-lg"></i>
+                        <h3 class="text-lg font-bold text-white">Introductory Video — The Nile River</h3>
+                    </div>
+                    <div class="rounded-xl overflow-hidden border border-nile-card bg-nile-dark w-full" style="aspect-ratio:16/9">
+                        <iframe width="100%" height="100%"
+                            src="https://www.youtube-nocookie.com/embed/RwjS3B6PYsk?rel=0&modestbranding=1&playsinline=1"
+                            title="Nile River Introduction"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen style="display:block">
+                        </iframe>
+                    </div>
+                    <p class="text-xs text-center text-gray-500 mt-3">
+                        <i class="fa-solid fa-play text-red-500 mr-1"></i>
+                        Discover the Nile River and its civilizational and environmental significance.
+                    </p>
+                </div>
+
+                <!-- Map -->
+                <div class="glass-card p-4 mb-10 max-w-6xl mx-auto">
+                    <div class="flex items-center gap-2 mb-4 border-b border-nile-card pb-3">
+                        <i class="fa-solid fa-map-location-dot text-nile-cyan text-lg"></i>
+                        <h3 class="text-lg font-bold text-white">Nile River Basin Map & Tributaries</h3>
+                    </div>
+                    <div class="overflow-hidden rounded-xl">
+                        <img src="./map.jpg" alt="Nile River Basin Map"
+                            class="w-full h-auto block rounded-xl"
+                            style="filter: drop-shadow(0 0 16px rgba(100,255,218,0.15))">
+                    </div>
+                    <p class="text-xs text-center text-gray-500 mt-3">
+                        <i class="fa-solid fa-circle-info text-nile-cyan mr-1"></i>
+                        The Nile extends from Lake Victoria in the south to its mouth in the Mediterranean Sea in the north, crossing 11 African countries.
+                    </p>
+                </div>
+
+                <!-- Info Cards -->
+                <div class="max-w-6xl mx-auto mb-6">
+                    <div class="section-divider"><span class="bg-nile-base px-4 text-gray-400 text-sm font-bold tracking-widest uppercase">
+                        <i class="fa-solid fa-water mr-2"></i> Key Facts About the Nile River <i class="fa-solid fa-water ml-2"></i>
+                    </span></div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+
+                        <!-- Tributaries -->
+                        <div class="glass-card p-6 border-l-4 border-l-nile-blue">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-nile-blue/10 flex items-center justify-center text-nile-blue text-2xl border border-nile-blue/20">
+                                    <i class="fa-solid fa-code-branch"></i>
+                                </div>
+                                <h4 class="text-xl font-bold text-white">Main Tributaries & Sources</h4>
+                            </div>
+                            <ul class="space-y-3 text-sm text-gray-300">
+                                <li class="flex items-start gap-3">
+                                    <span class="shrink-0 w-6 h-6 rounded-full bg-nile-blue/20 flex items-center justify-center text-nile-blue text-xs font-bold mt-0.5">1</span>
+                                    <span><strong class="text-white">White Nile</strong> — originates from Lake Victoria (the world's second-largest freshwater lake) and provides the year-round base flow.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="shrink-0 w-6 h-6 rounded-full bg-nile-cyan/20 flex items-center justify-center text-nile-cyan text-xs font-bold mt-0.5">2</span>
+                                    <span><strong class="text-white">Blue Nile</strong> — originates from Lake Tana in Ethiopia, contributing <strong class="text-nile-cyan">59%</strong> of total Nile water and the main source of fertile silt.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="shrink-0 w-6 h-6 rounded-full bg-nile-accent/20 flex items-center justify-center text-nile-accent text-xs font-bold mt-0.5">3</span>
+                                    <span><strong class="text-white">Atbara River</strong> — joins north of Khartoum, sourced from the Ethiopian Highlands. Contributes <strong class="text-nile-accent">13%</strong> of the Nile's water.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="shrink-0 w-6 h-6 rounded-full bg-nile-emerald/20 flex items-center justify-center text-nile-emerald text-xs font-bold mt-0.5">4</span>
+                                    <span><strong class="text-white">Furthest Source</strong> — the Luvironza River in Burundi, a tributary of the Kagera River that flows into Lake Victoria.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Basin Countries -->
+                        <div class="glass-card p-6 border-l-4 border-l-nile-emerald">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-nile-emerald/10 flex items-center justify-center text-nile-emerald text-2xl border border-nile-emerald/20">
+                                    <i class="fa-solid fa-earth-africa"></i>
+                                </div>
+                                <h4 class="text-xl font-bold text-white">The 11 Nile Basin Countries</h4>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 text-sm">
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-nile-dark px-3 py-1.5 rounded-lg border border-nile-card text-gray-300 flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-red-400 text-xs"></i>Egypt</span>
+                                    <span class="bg-nile-dark px-3 py-1.5 rounded-lg border border-nile-card text-gray-300 flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-orange-400 text-xs"></i>Sudan</span>
+                                    <span class="bg-nile-dark px-3 py-1.5 rounded-lg border border-nile-card text-gray-300 flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-yellow-400 text-xs"></i>South Sudan</span>
+                                    <span class="bg-nile-dark px-3 py-1.5 rounded-lg border border-nile-card text-gray-300 flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-green-400 text-xs"></i>Ethiopia</span>
+                                    <span class="bg-nile-dark px-3 py-1.5 rounded-lg border border-nile-card text-gray-300 flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-teal-400 text-xs"></i>Uganda</span>
+                                    <span class="bg-nile-dark px-3 py-1.5 rounded-lg border border-nile-card text-gray-300 flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-blue-400 text-xs"></i>Kenya</span>
+                                    <span class="bg-nile-dark px-3 py-1.5 rounded-lg border border-nile-card text-gray-300 flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-indigo-400 text-xs"></i>Tanzania</span>
+                                    <span class="bg-nile-dark px-3 py-1.5 rounded-lg border border-nile-card text-gray-300 flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-purple-400 text-xs"></i>Rwanda</span>
+                                    <span class="bg-nile-dark px-3 py-1.5 rounded-lg border border-nile-card text-gray-300 flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-pink-400 text-xs"></i>Burundi</span>
+                                    <span class="bg-nile-dark px-3 py-1.5 rounded-lg border border-nile-card text-gray-300 flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-rose-400 text-xs"></i>Congo</span>
+                                    <span class="bg-nile-dark px-3 py-1.5 rounded-lg border border-nile-card text-gray-300 flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-nile-cyan text-xs"></i>Eritrea</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 p-3 bg-nile-dark rounded-xl border border-nile-card">
+                                <p class="text-xs text-gray-400">
+                                    <i class="fa-solid fa-triangle-exclamation text-nile-accent mr-1"></i>
+                                    Egypt relies on the Nile for <strong class="text-red-400">97%</strong> of its water resources, and Sudan for <strong class="text-orange-400">77%</strong>.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Economic Importance -->
+                        <div class="glass-card p-6 border-l-4 border-l-nile-accent">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-nile-accent/10 flex items-center justify-center text-nile-accent text-2xl border border-nile-accent/20">
+                                    <i class="fa-solid fa-wheat-awn"></i>
+                                </div>
+                                <h4 class="text-xl font-bold text-white">Economic & Civilizational Importance</h4>
+                            </div>
+                            <ul class="space-y-3 text-sm text-gray-300 leading-relaxed">
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-nile-emerald mt-1 shrink-0"></i><span>The Nile supports the livelihoods of <strong class="text-white">tens of millions</strong> through agriculture, providing over 75% of the basin's workforce.</span></li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-nile-emerald mt-1 shrink-0"></i><span>Total irrigated lands across the basin are estimated at <strong class="text-white">54,000 km²</strong>, with over 97% in Egypt and Sudan.</span></li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-nile-emerald mt-1 shrink-0"></i><span>Home to the largest <strong class="text-white">African crocodiles</strong>, hippos, turtles, and hundreds of bird species.</span></li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-nile-emerald mt-1 shrink-0"></i><span>The ancient Egyptians called it <strong class="text-nile-accent">"Iteru Aa"</strong> (the Great River) — its modern name derives from the Greek <em>Neilos</em>.</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- Water Shares & Challenges -->
+                        <div class="glass-card p-6 border-l-4 border-l-nile-cyan">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-nile-cyan/10 flex items-center justify-center text-nile-cyan text-2xl border border-nile-cyan/20">
+                                    <i class="fa-solid fa-handshake"></i>
+                                </div>
+                                <h4 class="text-xl font-bold text-white">Water Shares & Key Challenges</h4>
+                            </div>
+                            <ul class="space-y-3 text-sm text-gray-300 leading-relaxed">
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-exclamation-triangle text-nile-accent mt-1 shrink-0"></i><span>The <strong class="text-red-400">Grand Ethiopian Renaissance Dam (GERD)</strong> on the Blue Nile represents one of the greatest current challenges for Egypt and Sudan.</span></li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-exclamation-triangle text-nile-accent mt-1 shrink-0"></i><span>The Nile carries <strong class="text-white">110 million tons of silt</strong> annually, renewing soil fertility but reducing dam storage capacity.</span></li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-handshake text-nile-cyan mt-1 shrink-0"></i><span><strong class="text-nile-cyan">Nile Basin Initiative (1999)</strong> — an international agreement to strengthen regional cooperation among the ten basin countries for optimal water use.</span></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 4. LAWS                                                       -->
+        <!-- ============================================================ -->
+        <section id="laws" class="spa-section">
+            <div class="py-6">
+                <div class="text-center mb-10">
+                    <h2 class="text-4xl font-black text-white mb-4">Egypt's <span class="gradient-text">Legislative Arsenal</span></h2>
+                    <p class="text-gray-400">The strict legal framework for protecting waterways and deterring violations and pollution.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-8">
+                    <!-- Law 48 / 1982 -->
+                    <a href="https://www.mwri.gov.eg/?page_id=6271" target="_blank" rel="noopener"
+                        class="block bg-white p-8 rounded-3xl border border-nile-cyan/50 relative overflow-hidden group hover:border-nile-cyan transition duration-300 shadow-[0_4px_24px_rgba(100,255,218,0.15)] cursor-pointer no-underline">
+                        <i
+                            class="fa-solid fa-gavel text-[150px] text-nile-cyan/10 absolute -top-10 -left-10 group-hover:scale-110 transition duration-500"></i>
+                        <div class="relative z-10">
+                            <div class="flex items-center gap-4 mb-6 border-b border-gray-200 pb-4">
+                                <span
+                                    class="w-16 h-16 bg-nile-cyan/15 rounded-2xl flex items-center justify-center text-3xl text-teal-600 font-bold shadow-inner">82</span>
+
+                                <div>
+                                    <h4 class="text-2xl font-bold text-nile-cyan">Law 48 of 1982</h4>
+                                    <p class="text-xs text-gray-400 mt-1">Primary Nile Protection Law (Amended 2015)</p>
+                                </div>
+                            </div>
+                            <ul class="space-y-4 text-sm text-gray-300 leading-relaxed">
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-chevron-right text-nile-cyan mt-1"></i><span><strong class="text-white">Article 2:</strong> Total ban on discharging any waste (solid, liquid, gaseous) into waterways without prior authorization from the Ministry of Irrigation.</span></li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-chevron-right text-nile-cyan mt-1"></i><span><strong class="text-white">Article 3:</strong> Requires the Ministry of Health to conduct periodic analyses of discharge samples to verify the absence of toxins, with immediate license revocation upon violation.</span></li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-chevron-right text-nile-cyan mt-1"></i><span><strong class="text-white">Article 7:</strong> Prohibition of fuel and oil leaks from river vessels (ships, floating hotels, houseboats).</span></li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-chevron-right text-nile-cyan mt-1"></i><span><strong class="text-white">2015 Amendments:</strong> Floating hotels included among facilities required to have waste treatment systems before discharge.</span></li>
+                            </ul>
+                            <p class="text-nile-cyan text-xs font-bold mt-4 flex items-center gap-1">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Click here to read more
+                            </p>
+                        </div>
+                    </a>
+
+                    <!-- Law 147 / 2021 -->
+                    <a href="https://www.mwri.gov.eg/spa/wp-content/uploads/2021/11/%D9%82%D8%A7%D9%86%D9%88%D9%86-147-%D9%84%D8%B3%D9%86%D8%A9-2021.pdf" target="_blank" rel="noopener"
+                        class="block bg-amber-50 p-8 rounded-3xl border border-nile-accent/50 relative overflow-hidden group hover:border-nile-accent transition duration-300 shadow-[0_4px_24px_rgba(243,156,18,0.15)] cursor-pointer no-underline">
+                        <i
+                            class="fa-solid fa-scale-balanced text-[150px] text-nile-accent/10 absolute -top-10 -left-10 group-hover:scale-110 transition duration-500"></i>
+                        <div class="relative z-10">
+                            <div class="flex items-center gap-4 mb-6 border-b border-amber-200 pb-4">
+                                <span
+                                    class="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center text-3xl text-amber-600 font-bold shadow-inner">21</span>
+                                <div>
+                                    <h4 class="text-2xl font-bold text-nile-accent">Law 147 of 2021</h4>
+                                    <p class="text-xs text-gray-400 mt-1">Updated Water Resources and Irrigation Law</p>
+                                </div>
+                            </div>
+                            <ul class="space-y-4 text-sm text-gray-300 leading-relaxed">
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-chevron-right text-nile-accent mt-1"></i><span><strong class="text-white">River Buffer Zone:</strong> Buffer zone set at 80 meters from the bank line, with a complete ban on construction or polluting activities.</span></li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-chevron-right text-nile-accent mt-1"></i><span><strong class="text-white">Stricter Penalties:</strong> Fines up to EGP 200,000, imprisonment, and doubled penalties for repeat offenses.</span></li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-chevron-right text-nile-accent mt-1"></i><span><strong class="text-white">Article 85 (Industrial Governance):</strong> Factory licenses linked to having internal treatment plants connected to a continuous monitoring system with the Ministry of Irrigation.</span></li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-chevron-right text-nile-accent mt-1"></i><span><strong class="text-white">Removal Authority:</strong> The Ministry's inherent right to remove violations "administratively" and immediately at the violator's expense.</span></li>
+                            </ul>
+                            <p class="text-nile-accent text-xs font-bold mt-4 flex items-center gap-1">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Click here to read more
+                            </p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Extra laws -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                    <a href="https://www.eeaa.gov.eg/Laws/56/index" target="_blank" rel="noopener"
+                        class="block bg-nile-dark p-6 rounded-2xl border border-purple-500/30 flex items-start gap-4 hover:border-purple-400 transition duration-300 cursor-pointer no-underline group">
+                        <div class="w-14 h-14 shrink-0 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-2xl font-bold">20</div>
+                        <div>
+                            <h4 class="text-lg font-bold text-purple-300 mb-2">Law 202 of 2020 — Waste Management</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">Regulates solid waste and plastic management, criminalizing disposal in waterways with severe penalties including up to 5 years imprisonment and fines.</p>
+                            <p class="text-purple-400 text-xs font-bold mt-3 flex items-center gap-1">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Click here to read more
+                            </p>
+                        </div>
+                    </a>
+                    <a href="https://www.eeaa.gov.eg/Laws/55/index" target="_blank" rel="noopener"
+                        class="block bg-nile-dark p-6 rounded-2xl border border-green-500/30 flex items-start gap-4 hover:border-green-400 transition duration-300 cursor-pointer no-underline group">
+                        <div class="w-14 h-14 shrink-0 rounded-xl bg-green-500/10 text-green-400 flex items-center justify-center text-2xl font-bold">94</div>
+                        <div>
+                            <h4 class="text-lg font-bold text-green-300 mb-2">Law 4 of 1994 — Environment (as Amended)</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">Criminalizes discharging industrial waste and dumping hazardous materials into the Nile, requiring facilities to obtain Environmental Impact Assessment reports before operations.</p>
+                            <p class="text-green-400 text-xs font-bold mt-3 flex items-center gap-1">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Click here to read more
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 1. HOME: Water Crisis                                         -->
+        <!-- ============================================================ -->
+        <section id="home" class="spa-section">
+            <div class="text-center py-6 px-4">
+                <h2 class="text-4xl md:text-5xl font-black mb-4 text-white leading-tight">Egypt's Water Balance Reality</h2>
+                <p class="text-lg text-gray-400 max-w-4xl mx-auto mb-10 leading-relaxed">Egypt faces an existential challenge as per-capita share declines while core water resources (the Nile) remain fixed at <strong class="text-nile-cyan">55.5 billion m³</strong>, against ever-growing demand exceeding <strong class="text-red-400">114 billion m³</strong> annually — placing us well below the threshold of acute water scarcity.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 text-left mb-8">
+                    <div class="glass-card p-6 col-span-1 lg:col-span-2 relative overflow-hidden group border-t-4 border-t-red-500">
+                        <div class="absolute top-0 right-0 w-full h-full bg-gradient-to-l from-red-500/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                        <div class="flex justify-between items-start relative z-10">
+                            <div>
+                                <p class="text-red-400 font-bold text-sm mb-2"><i class="fa-solid fa-arrow-trend-down mr-1"></i> Per-Capita Water Share (Poverty Threshold: 1,000 m³)</p>
+                                <h4 class="text-5xl font-black text-white mb-2">490 <span class="text-xl text-gray-400 font-normal">m³ / year</span></h4>
+                                <p class="text-sm text-gray-400 leading-relaxed max-w-md mt-3">Declined from <strong class="text-white">2,526 m³</strong> in 1947 to approximately <strong class="text-red-400">490 m³</strong> for 2025–2026, officially classifying Egypt below the absolute water scarcity threshold.</p>
+                            </div>
+                            <div class="w-16 h-16 rounded-2xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400 text-3xl shrink-0">
+                                <i class="fa-solid fa-person-drowning"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-card p-6 flex flex-col justify-center border-t-4 border-t-nile-accent">
+                        <i class="fa-solid fa-droplet-slash text-3xl text-nile-accent mb-3 opacity-80"></i>
+                        <p class="text-sm text-gray-400 mb-1 font-bold">Water Deficit</p>
+                        <h4 class="text-3xl font-bold text-white mb-1">54 <span class="text-base text-gray-500">billion m³</span></h4>
+                        <p class="text-[11px] text-gray-500 mt-2">The total gap between demand and actual supply, partially bridged by recycling agricultural drainage.</p>
+                    </div>
+                    <div class="glass-card p-6 flex flex-col justify-center border-t-4 border-t-blue-400">
+                        <i class="fa-solid fa-ship text-3xl text-blue-400 mb-3 opacity-80"></i>
+                        <p class="text-sm text-gray-400 mb-1 font-bold">Virtual Water</p>
+                        <h4 class="text-3xl font-bold text-white mb-1">33+ <span class="text-base text-gray-500">billion m³</span></h4>
+                        <p class="text-[11px] text-gray-500 mt-2">Deficit bridged through importing food commodities.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="glass-card p-6 lg:col-span-2 relative overflow-hidden">
+                        <div class="flex justify-between items-center mb-6 border-b border-nile-card pb-4">
+                            <h3 class="text-lg font-bold text-white"><i class="fa-solid fa-chart-area text-nile-cyan mr-2"></i> Historical Decline in Per-Capita Share vs. Population Growth</h3>
+                        </div>
+                        <div style="position:relative;height:300px;width:100%">
+                            <canvas id="popWaterChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="glass-card p-6 relative overflow-hidden flex flex-col">
+                        <div class="flex justify-between items-center mb-6 border-b border-nile-card pb-4">
+                            <h3 class="text-lg font-bold text-white"><i class="fa-solid fa-chart-pie text-nile-emerald mr-2"></i> Water Consumption Distribution</h3>
+                        </div>
+                        <div class="flex-grow flex items-center justify-center relative" style="height:250px">
+                            <canvas id="usagePieChart"></canvas>
+                        </div>
+                        <p class="text-xs text-center text-gray-500 mt-4">Agriculture consumes <strong class="text-nile-emerald">76.91%</strong> of resources — highlighting the importance of modern irrigation.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="py-6">
+                <div class="text-center mb-10">
+                    <h2 class="text-4xl font-black text-white mb-3"><span class="gradient-text">Advanced Statistics</span></h2>
+                    <p class="text-gray-400">A comprehensive data-driven view of Egypt's water situation in numbers and charts.</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 max-w-6xl mx-auto">
+                    <div class="glass-card stat-card-glow p-5 text-center border-t-4 border-t-nile-cyan">
+                        <i class="fa-solid fa-water text-nile-cyan text-2xl mb-2"></i>
+                        <div class="text-3xl font-black text-white countup" data-target="55.5" data-suffix="B">0</div>
+                        <p class="text-xs text-gray-400 mt-1">Egypt's Nile Share (billion m³)</p>
+                    </div>
+                    <div class="glass-card stat-card-glow p-5 text-center border-t-4 border-t-red-500">
+                        <i class="fa-solid fa-person-drowning text-red-400 text-2xl mb-2"></i>
+                        <div class="text-3xl font-black text-white countup" data-target="490" data-suffix="">0</div>
+                        <p class="text-xs text-gray-400 mt-1">Per-Capita Share m³/year</p>
+                    </div>
+                    <div class="glass-card stat-card-glow p-5 text-center border-t-4 border-t-nile-accent">
+                        <i class="fa-solid fa-industry text-nile-accent text-2xl mb-2"></i>
+                        <div class="text-3xl font-black text-white countup" data-target="270" data-suffix="">0</div>
+                        <p class="text-xs text-gray-400 mt-1">Tons of Industrial Pollutants/Day</p>
+                    </div>
+                    <div class="glass-card stat-card-glow p-5 text-center border-t-4 border-t-nile-emerald">
+                        <i class="fa-solid fa-recycle text-nile-emerald text-2xl mb-2"></i>
+                        <div class="text-3xl font-black text-white countup" data-target="7700" data-suffix=" km">0</div>
+                        <p class="text-xs text-gray-400 mt-1">Lined Canals by 2024</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl mx-auto mb-8">
+                    <div class="glass-card p-6">
+                        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-chart-line text-nile-cyan"></i> Historical Decline in Per-Capita Share</h3>
+                        <div style="height:260px"><canvas id="statPerCapita"></canvas></div>
+                    </div>
+                    <div class="glass-card p-6">
+                        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-faucet-drip text-nile-blue"></i> Water Sources in Egypt</h3>
+                        <div style="height:260px"><canvas id="statSources"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 3. POLLUTION                                                  -->
+        <!-- ============================================================ -->
+        <section id="pollution" class="spa-section">
+            <div class="py-6">
+                <div class="text-center mb-10">
+                    <h2 class="text-4xl font-black text-white mb-4">Sources of <span class="gradient-text">Environmental & Chemical Pollution</span></h2>
+                    <p class="text-gray-400">Complex challenges requiring real-time monitoring to ensure the river's environmental security.</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div class="glass-card p-4 text-center border-t-4 border-t-red-500">
+                        <div class="text-3xl font-black text-red-400 mb-1">270</div>
+                        <p class="text-xs text-gray-400">Tons of Industrial Pollutants/Day</p>
+                    </div>
+                    <div class="glass-card p-4 text-center border-t-4 border-t-purple-500">
+                        <div class="text-3xl font-black text-purple-400 mb-1">14M</div>
+                        <p class="text-xs text-gray-400">Tons of Solid Waste/Year</p>
+                    </div>
+                    <div class="glass-card p-4 text-center border-t-4 border-t-red-600">
+                        <div class="text-3xl font-black text-red-500 mb-1">17K</div>
+                        <p class="text-xs text-gray-400">Child Deaths/Year from Intestinal Diseases</p>
+                    </div>
+                    <div class="glass-card p-4 text-center border-t-4 border-t-yellow-500">
+                        <div class="text-3xl font-black text-yellow-400 mb-1">40</div>
+                        <p class="text-xs text-gray-400">Fish Species That Have Disappeared</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="glass-card p-6 border-l-4 border-l-red-500 flex gap-5">
+                        <div class="w-16 h-16 shrink-0 bg-red-500/10 rounded-full flex items-center justify-center text-red-500 text-3xl">
+                            <i class="fa-solid fa-industry"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Industrial Pollution (270 tons/day)</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">A detailed study in Aswan Governorate confirmed that <strong class="text-white">paper, sugar, and ferrosilicon factories</strong> discharge high concentrations of Chemical Oxygen Demand (COD = 59.6 mg/L) and Biological Oxygen Demand (BOD = 36.5 mg/L), as well as heavy metals (lead, mercury, chromium) from untreated effluents.</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 border-l-4 border-l-yellow-500 flex gap-5">
+                        <div class="w-16 h-16 shrink-0 bg-yellow-500/10 rounded-full flex items-center justify-center text-yellow-500 text-3xl">
+                            <i class="fa-solid fa-flask"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Agricultural Runoff (Eutrophication)</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">Massive leakage of nitrates, phosphate fertilizers, and pesticide residues causes <strong class="text-white">eutrophication</strong>, depleting dissolved oxygen (DO) and killing aquatic life, while triggering the growth of suffocating algal blooms.</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 border-l-4 border-l-nile-plastic flex gap-5">
+                        <div class="w-16 h-16 shrink-0 bg-nile-plastic/10 rounded-full flex items-center justify-center text-nile-plastic text-3xl">
+                            <i class="fa-solid fa-bottle-water"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Solid Waste (14 million tons/year)</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">Waste decomposes into microscopic compounds <strong class="text-white">(microplastics)</strong> that enter the food chain, leading to the disappearance of approximately <strong class="text-purple-400">40 species</strong> of Nile fish.</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 border-l-4 border-l-green-500 flex gap-5">
+                        <div class="w-16 h-16 shrink-0 bg-green-500/10 rounded-full flex items-center justify-center text-green-500 text-3xl">
+                            <i class="fa-solid fa-bacteria"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Biological & Municipal Pollutants</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">Untreated sewage and floating houses elevate <strong class="text-white">E.coli</strong> bacteria levels, causing intestinal epidemics that claim approximately <strong class="text-red-400">17,000 children's</strong> lives annually. Total Suspended Solids (TSS) reached 13.1 mg/L at some sites.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 2. RATIONALIZATION & TREATMENT                                -->
+        <!-- ============================================================ -->
+        <section id="rationalization_treatment" class="spa-section">
+            <div class="py-6">
+                <div class="text-center mb-10">
+                    <h2 class="text-4xl font-black text-white mb-3">Conservation & <span class="gradient-text">National Projects</span></h2>
+                    <p class="text-gray-400">A strategy to reduce losses and maximize economic and agricultural output.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="glass-card p-8 flex flex-col">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-nile-emerald/10 flex items-center justify-center text-nile-emerald text-3xl border border-nile-emerald/20">
+                                <i class="fa-solid fa-seedling"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Smart Agriculture & Modern Irrigation</h3>
+                                <p class="text-sm text-nile-emerald mt-1">Ministerial Decree 1470/2023 — Mandatory Conversion</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-300 mb-4 leading-relaxed">Converting millions of acres from flood irrigation to drip and sprinkler systems, integrating IoT technology and moisture sensors. Actual results (2025): saving <strong class="text-nile-emerald">3–5 billion m³/year</strong> upon full conversion, with a 25% increase in yield per acre.</p>
+                        <div class="flex-grow relative" style="height:200px">
+                            <canvas id="efficiencyBarChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-8">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-nile-blue/10 flex items-center justify-center text-nile-blue text-3xl border border-nile-blue/20">
+                                <i class="fa-solid fa-water"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">National Canal Lining Project</h3>
+                                <p class="text-sm text-nile-blue mt-1">Reducing losses through soil seepage</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-300 mb-4 leading-relaxed">Cost per kilometer: <span class="text-nile-cyan font-bold">3 million EGP</span>. Economic feasibility (BCR) exceeds 1.0 across all discount scenarios (5%, 7%, 10%).</p>
+                        <div class="grid grid-cols-2 gap-4 text-center mb-5">
+                            <div class="bg-nile-dark p-4 rounded-xl border border-nile-card">
+                                <h4 class="text-3xl font-black text-white mb-1">20,000 <span class="text-sm font-normal text-gray-500">km</span></h4>
+                                <p class="text-xs text-gray-400">Total National Plan</p>
+                            </div>
+                            <div class="bg-nile-dark p-4 rounded-xl border border-nile-card">
+                                <h4 class="text-3xl font-black text-nile-emerald mb-1">5 <span class="text-sm font-normal text-gray-500">billion m³</span></h4>
+                                <p class="text-xs text-gray-400">Expected Water Savings</p>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <div class="flex justify-between text-xs mb-1"><span class="text-gray-400">Completed Length (~7,500 km)</span><span class="text-nile-blue font-bold">37%</span></div>
+                            <div class="progress-bar-container"><div class="progress-bar bg-nile-blue" style="width:37%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1"><span class="text-gray-400">Next Phase Target (+1,600 km)</span><span class="text-nile-emerald font-bold">+8%</span></div>
+                            <div class="progress-bar-container"><div class="progress-bar bg-nile-emerald" style="width:8%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="glass-card p-6 mb-6 overflow-x-auto">
+                    <h3 class="text-xl font-bold text-white mb-5 flex items-center gap-3">
+                        <i class="fa-solid fa-water text-nile-cyan"></i> Canal Lining Project Statistics (May 2026 Updates)
+                    </h3>
+                    <table class="data-table w-full border-collapse text-left">
+                        <thead>
+                            <tr>
+                                <th class="rounded-l-lg">Phase / Description</th>
+                                <th>Length (km)</th>
+                                <th>Estimated Cost</th>
+                                <th>% of Target</th>
+                                <th class="rounded-r-lg">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-300">
+                            <tr>
+                                <td class="font-semibold text-nile-cyan">Foundation Phase (Phase 1)</td>
+                                <td class="font-bold text-white">7,000</td>
+                                <td class="text-nile-accent">EGP 18.0 Billion</td>
+                                <td><div class="flex items-center gap-2"><div class="w-24 bg-nile-card rounded h-2"><div class="bg-nile-cyan h-2 rounded" style="width:35%"></div></div><span class="text-nile-cyan font-bold">35%</span></div></td>
+                                <td><span class="px-2 py-1 rounded text-xs bg-green-500/20 text-green-400 border border-green-500/30">✔ Complete</span></td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold text-purple-400">Intermediate Expansion Estimates</td>
+                                <td class="font-bold text-white">Undefined</td>
+                                <td class="text-nile-accent">EGP 68.0 Billion</td>
+                                <td><div class="flex items-center gap-2"><div class="w-24 bg-nile-card rounded h-2"><div class="bg-purple-400 h-2 rounded" style="width:75%"></div></div><span class="text-purple-400 font-bold">-</span></div></td>
+                                <td><span class="px-2 py-1 rounded text-xs bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">⚙ In Progress</span></td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold text-nile-accent">Target (2026/2027 Plan)</td>
+                                <td class="font-bold text-white">600</td>
+                                <td class="text-nile-accent">~ EGP 2.4 Billion</td>
+                                <td><div class="flex items-center gap-2"><div class="w-24 bg-nile-card rounded h-2"><div class="bg-nile-accent h-2 rounded" style="width:3%"></div></div><span class="text-nile-accent font-bold">3%</span></div></td>
+                                <td><span class="px-2 py-1 rounded text-xs bg-blue-500/20 text-blue-400 border border-blue-500/30">◎ Planned</span></td>
+                            </tr>
+                            <tr class="border-t-2 border-nile-cyan/30">
+                                <td class="font-black text-white">Overall Project Final Estimates</td>
+                                <td class="font-black text-nile-cyan">20,000</td>
+                                <td class="font-black text-nile-cyan">EGP 80.0 Billion</td>
+                                <td><div class="flex items-center gap-2"><div class="w-24 bg-nile-card rounded h-2"><div class="bg-nile-cyan h-2 rounded" style="width:100%"></div></div><span class="text-nile-cyan font-bold">100%</span></div></td>
+                                <td><span class="px-2 py-1 rounded text-xs bg-nile-cyan/20 text-nile-cyan border border-nile-cyan/30">Overall Goal</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-xs text-gray-500 mt-3 text-center">* Source: Comprehensive Strategic Report (May 2026 Updates).</p>
+                </div>
+
+                <div class="section-divider"><span class="bg-nile-base px-4 text-gray-400 text-sm font-bold tracking-widest uppercase"><i class="fa-solid fa-recycle mr-2"></i> Second Line of Defense: Giant Recycling Projects <i class="fa-solid fa-recycle ml-2"></i></span></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                    <div class="glass-card p-8 border-t-4 border-t-purple-500 hover:border-purple-400 transition group flex flex-col">
+                        <div class="w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center text-purple-400 text-3xl mb-6 group-hover:scale-110 transition duration-300"><i class="fa-solid fa-water"></i></div>
+                        <h4 class="text-2xl font-bold text-white mb-3">Bahr El-Baqar Station</h4>
+                        <div class="bg-nile-dark/50 p-3 rounded-lg mb-4 text-center border border-purple-500/20">
+                            <span class="block text-4xl font-black text-purple-400 mb-1">5.6<span class="text-lg font-normal text-gray-500">M m³/day</span></span>
+                            <span class="text-xs text-gray-400">World's Largest</span>
+                        </div>
+                        <ul class="text-sm text-gray-300 leading-relaxed space-y-2 flex-grow">
+                            <li class="flex gap-2"><i class="fa-solid fa-check-circle text-purple-400 mt-1 shrink-0"></i> Triple treatment (physical, chemical, biological)</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check-circle text-purple-400 mt-1 shrink-0"></i> 120 disc filters with 10-micron apertures + ozone + chlorine</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check-circle text-purple-400 mt-1 shrink-0"></i> Reduces organic load (BOD) by <strong class="text-white">95%</strong></li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check-circle text-purple-400 mt-1 shrink-0"></i> Targets reclamation of <strong class="text-white">456,000 acres</strong> in Sinai</li>
+                        </ul>
+                    </div>
+
+                    <div class="glass-card p-8 border-t-4 border-t-nile-cyan hover:border-nile-cyan transition group flex flex-col">
+                        <div class="w-16 h-16 bg-nile-cyan/10 rounded-2xl flex items-center justify-center text-nile-cyan text-3xl mb-6 group-hover:scale-110 transition duration-300"><i class="fa-solid fa-route"></i></div>
+                        <h4 class="text-2xl font-bold text-white mb-3">El-Hamam Station</h4>
+                        <div class="bg-nile-dark/50 p-3 rounded-lg mb-4 text-center border border-nile-cyan/20">
+                            <span class="block text-4xl font-black text-nile-cyan mb-1">7.5<span class="text-lg font-normal text-gray-500">M m³/day</span></span>
+                            <span class="text-xs text-gray-400">Serving the New Delta</span>
+                        </div>
+                        <ul class="text-sm text-gray-300 leading-relaxed space-y-2 flex-grow">
+                            <li class="flex gap-2"><i class="fa-solid fa-check-circle text-nile-cyan mt-1 shrink-0"></i> Conveyor route spanning <strong class="text-white">174 km</strong></li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check-circle text-nile-cyan mt-1 shrink-0"></i> <strong class="text-white">12 giant pumping stations</strong> along the route</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check-circle text-nile-cyan mt-1 shrink-0"></i> Targets reclamation of <strong class="text-white">2 million acres</strong> (Egypt's Future)</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check-circle text-nile-cyan mt-1 shrink-0"></i> Advanced triple treatment meeting international standards</li>
+                        </ul>
+                    </div>
+
+                    <div class="glass-card p-8 border-t-4 border-t-nile-accent hover:border-nile-accent transition group flex flex-col">
+                        <div class="w-16 h-16 bg-nile-accent/10 rounded-2xl flex items-center justify-center text-nile-accent text-3xl mb-6 group-hover:scale-110 transition duration-300"><i class="fa-solid fa-award"></i></div>
+                        <h4 class="text-2xl font-bold text-white mb-3">El-Mahsama Station</h4>
+                        <div class="bg-nile-dark/50 p-3 rounded-lg mb-4 text-center border border-nile-accent/20">
+                            <span class="block text-4xl font-black text-nile-accent mb-1">1.0<span class="text-lg font-normal text-gray-500">M m³/day</span></span>
+                            <span class="text-xs text-gray-400">Engineering Project of the Year</span>
+                        </div>
+                        <ul class="text-sm text-gray-300 leading-relaxed space-y-2 flex-grow">
+                            <li class="flex gap-2"><i class="fa-solid fa-check-circle text-nile-accent mt-1 shrink-0"></i> International awards as best engineering project worldwide</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check-circle text-nile-accent mt-1 shrink-0"></i> An inspiring local model for water sustainability</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check-circle text-nile-accent mt-1 shrink-0"></i> Safe recycling according to international environmental standards</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 5. IoT / AI ARCHITECTURE                                     -->
+        <!-- ============================================================ -->
+        <section id="iot_ai" class="spa-section">
+            <div class="py-6">
+                <div class="text-center mb-10">
+                    <h2 class="text-4xl font-black text-white mb-3"><span class="gradient-text">Proposed Engineering Monitoring & AI System</span></h2>
+                    <p class="text-gray-400">An integrated technical architecture from the riverbed to satellite surveillance.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-10">
+                    <div class="glass-card p-8 border-t-4 border-t-nile-cyan hover:-translate-y-2 transition duration-300 relative overflow-hidden">
+                        <div class="text-5xl text-nile-cyan mb-6 opacity-80"><i class="fa-solid fa-microchip"></i></div>
+                        <h3 class="text-xl font-bold text-white mb-3">1. Perception Layer</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed mb-4">Submerged sensor nodes measuring: pH, DO, EC, Turbidity, TDS, Temp, Nitrates, and Phosphates.</p>
+                        <div class="bg-nile-dark p-3 rounded border border-nile-card">
+                            <h4 class="text-xs font-bold text-nile-cyan mb-1">Biosensors</h4>
+                            <p class="text-[11px] text-gray-400">Rely on enzymatic energy converters to detect heavy metals and bacteria in less than 5 minutes. Cost: $300–$3,500 per unit.</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-8 border-t-4 border-t-purple-400 hover:-translate-y-2 transition duration-300">
+                        <div class="text-5xl text-purple-400 mb-6 opacity-80"><i class="fa-solid fa-wifi"></i></div>
+                        <h3 class="text-xl font-bold text-white mb-3">2. Transport Layer</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed mb-4">Overcomes weak infrastructure in rural areas through low-power communication protocols.</p>
+                        <div class="bg-nile-dark p-3 rounded border border-nile-card mb-2">
+                            <h4 class="text-xs font-bold text-purple-400 mb-1">LoRaWAN — Range 10–15 km</h4>
+                            <p class="text-[11px] text-gray-400">Signal strength -94 dBm with minimal power consumption. NB-IoT for areas with 4G coverage. 5G for urban facilities.</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-8 border-t-4 border-t-nile-accent hover:-translate-y-2 transition duration-300">
+                        <div class="text-5xl text-nile-accent mb-6 opacity-80"><i class="fa-solid fa-server"></i></div>
+                        <h3 class="text-xl font-bold text-white mb-3">3. Cloud Layer</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed mb-4">Cloud-based big data processing and management through Web-GIS dashboards for decision-makers.</p>
+                        <div class="bg-nile-dark p-3 rounded border border-nile-card">
+                            <h4 class="text-xs font-bold text-nile-accent mb-1">Automated Alerting (within 30 seconds)</h4>
+                            <p class="text-[11px] text-gray-400">Pattern analysis and anomaly detection (XGBoost) to predict pollution paths and issue automatic closure orders for drinking station intakes.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-divider"><span class="bg-nile-base px-4 text-gray-400 text-sm font-bold tracking-widest uppercase"><i class="fa-solid fa-eye mr-2"></i> Monitoring & Computer Vision <i class="fa-solid fa-eye ml-2"></i></span></div>
+
+                <div class="glass-card p-10 flex flex-col justify-center relative overflow-hidden group max-w-5xl mx-auto mt-6">
+                    <div class="absolute left-0 bottom-0 opacity-[0.03] text-[250px] text-white group-hover:scale-110 transition duration-700 pointer-events-none translate-y-16 -translate-x-16">
+                        <i class="fa-solid fa-satellite"></i>
+                    </div>
+                    <div class="space-y-10 relative z-10">
+                        <div class="flex gap-6 items-start">
+                            <div class="w-16 h-16 shrink-0 bg-nile-dark rounded-2xl border border-nile-blue/30 flex items-center justify-center text-3xl text-nile-blue shadow-lg">
+                                <i class="fa-solid fa-satellite-dish"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-xl mb-2">Satellites (Sentinel-2 & SRIs)</h4>
+                                <p class="text-sm text-gray-400 leading-relaxed">Multispectral satellite imagery is used to extract Spectral Reflectance Indices (SRIs) to estimate Total Suspended Solids (TSS), chlorophyll, and turbidity with 80–90% accuracy, track river encroachments, and provide geothermal mapping.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 items-start">
+                            <div class="w-16 h-16 shrink-0 bg-nile-dark rounded-2xl border border-nile-emerald/30 flex items-center justify-center text-3xl text-nile-emerald shadow-lg">
+                                <i class="fa-solid fa-camera"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-xl mb-2">Bridge Cameras & YOLOv8 Models</h4>
+                                <p class="text-sm text-gray-400 leading-relaxed">AI computer vision models running on bridge cameras, tasked with automatically detecting and classifying floating plastic waste (Macroplastics) to estimate the volume of pollution flowing toward the Mediterranean Sea. Research published in Frontiers (2025).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 6. SCADA SIMULATOR                                            -->
+        <!-- ============================================================ -->
+        <section id="simulator" class="spa-section">
+            <div class="py-6">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-8 border-b border-nile-card pb-4">
+                    <div>
+                        <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                            <i class="fa-solid fa-network-wired text-nile-cyan"></i> Proposed Simulator for Nile Pollution Monitoring Stations
+                        </h2>
+                        <p class="text-sm mt-2 text-gray-400">Interactive simulation of an Early Warning System (EWS) connected to a LoRaWAN network — click on a node to view its live data.</p>
+                    </div>
+                    <div class="mt-4 md:mt-0 flex items-center gap-3">
+                        <span id="sys-status-badge" class="text-xs px-3 py-1 rounded font-bold border border-green-500/30 bg-green-500/10 text-green-400">NORMAL</span>
+                        <div class="flex items-center gap-2 bg-[#020b14] px-5 py-3 rounded-xl border border-nile-cyan/30 shadow-[0_0_15px_rgba(100,255,218,0.1)]">
+                            <div class="pulse-ring relative mr-4"></div>
+                            <span class="text-nile-cyan font-mono text-sm tracking-widest font-bold">SYSTEM ONLINE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- MAP COLUMN -->
+                    <div class="lg:col-span-1 glass-card p-4 flex flex-col">
+                        <h4 class="text-sm font-bold text-white mb-3 uppercase tracking-wider"><i class="fa-solid fa-map text-nile-cyan mr-2"></i> Interactive Map (Web-GIS)</h4>
+                        <div class="map-container relative w-full flex-grow" id="map-area">
+                            <svg class="river-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                <path d="M50,100 Q48,85 49,72 Q47,60 48,50 Q49,42 50,35" />
+                                <path d="M50,35 Q55,22 62,12 Q65,6 68,2" />
+                                <path d="M50,35 Q43,22 35,12 Q32,6 30,2" />
+                            </svg>
+
+                            <div class="map-node active-node" id="mnode-1" style="top:90%;left:50%;" onclick="selectNode(1)" onmouseenter="showPopup(1,this)" onmouseleave="hidePopup()">
+                                <div class="absolute -top-7 right-0 text-[9px] bg-nile-dark/90 px-2 py-0.5 rounded border border-nile-cyan/20 text-nile-cyan whitespace-nowrap">1: Aswan</div>
+                            </div>
+                            <div class="map-node" id="mnode-2" style="top:74%;left:49%;" onclick="selectNode(2)" onmouseenter="showPopup(2,this)" onmouseleave="hidePopup()">
+                                <div class="absolute -top-7 right-0 text-[9px] bg-nile-dark/90 px-2 py-0.5 rounded border border-nile-cyan/20 text-nile-cyan whitespace-nowrap">2: Luxor</div>
+                            </div>
+                            <div class="map-node" id="mnode-3" style="top:56%;left:48%;" onclick="selectNode(3)" onmouseenter="showPopup(3,this)" onmouseleave="hidePopup()">
+                                <div class="absolute -top-7 right-0 text-[9px] bg-nile-dark/90 px-2 py-0.5 rounded border border-nile-cyan/20 text-nile-cyan whitespace-nowrap">3: Asyut</div>
+                            </div>
+                            <div class="map-node" id="mnode-4" style="top:38%;left:50%;" onclick="selectNode(4)" onmouseenter="showPopup(4,this)" onmouseleave="hidePopup()">
+                                <div class="absolute -top-7 right-0 text-[9px] bg-nile-dark/90 px-2 py-0.5 rounded border border-nile-cyan/20 text-nile-cyan whitespace-nowrap">4: Al-Qanater</div>
+                            </div>
+                            <div class="map-node" id="mnode-5" style="top:12%;left:63%;" onclick="selectNode(5)" onmouseenter="showPopup(5,this)" onmouseleave="hidePopup()">
+                                <div class="absolute -top-7 right-0 text-[9px] bg-nile-dark/90 px-2 py-0.5 rounded border border-nile-cyan/20 text-nile-cyan whitespace-nowrap">5: Talkha</div>
+                            </div>
+                            <div class="map-node" id="mnode-6" style="top:12%;left:33%;" onclick="selectNode(6)" onmouseenter="showPopup(6,this)" onmouseleave="hidePopup()">
+                                <div class="absolute -top-7 right-0 text-[9px] bg-nile-dark/90 px-2 py-0.5 rounded border border-nile-cyan/20 text-nile-cyan whitespace-nowrap">6: Edfina</div>
+                            </div>
+                            <div class="map-node" id="mnode-7" style="top:5%;left:75%;" onclick="selectNode(7)" onmouseenter="showPopup(7,this)" onmouseleave="hidePopup()">
+                                <div class="absolute -top-7 right-0 text-[9px] bg-nile-dark/90 px-2 py-0.5 rounded border border-nile-cyan/20 text-nile-cyan whitespace-nowrap">7: Lake Manzala</div>
+                            </div>
+
+                            <div id="node-popup" class="node-popup"></div>
+
+                            <div class="absolute top-2 left-2 text-[9px] space-y-1 bg-nile-dark/80 p-2 rounded border border-nile-card">
+                                <div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-nile-cyan inline-block"></span> Normal</div>
+                                <div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-yellow-400 inline-block"></span> Warning</div>
+                                <div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-red-500 inline-block"></span> Critical</div>
+                                <div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-purple-500 inline-block"></span> Plastic</div>
+                            </div>
+                            <div class="absolute bottom-2 right-2 text-[10px] bg-nile-dark/80 px-2 py-1 rounded text-nile-cyan font-mono border border-nile-cyan/20">
+                                GPS: ACTIVE | LoRa: 7/7</div>
+                        </div>
+
+                        <div class="mt-4 bg-nile-dark rounded-2xl border border-nile-card p-4 text-center">
+                            <p class="text-xs text-gray-400 uppercase tracking-wider mb-2 font-bold">Water Quality Index (WQI)</p>
+                            <div class="relative inline-flex items-center justify-center" style="width:110px;height:110px">
+                                <svg viewBox="0 0 36 36" class="absolute inset-0 w-full h-full" style="transform:rotate(-90deg)">
+                                    <circle cx="18" cy="18" r="15.9" fill="none" stroke="#1d2d44" stroke-width="3.5" />
+                                    <circle id="wqi-circle" cx="18" cy="18" r="15.9" fill="none" stroke="#64ffda" stroke-width="3.5" stroke-dasharray="75 100" stroke-linecap="round" class="transition-all duration-700" />
+                                </svg>
+                                <div class="flex flex-col items-center z-10">
+                                    <span id="val-wqi" class="text-3xl font-black text-nile-cyan digital-font">75</span>
+                                    <span class="text-[9px] text-gray-400 mt-0.5">/ 100</span>
+                                </div>
+                            </div>
+                            <p id="wqi-label" class="text-xs font-bold text-nile-cyan mt-2">Good</p>
+                        </div>
+
+                        <p class="text-[11px] text-gray-500 mt-2 text-center">Click on a node to view its real-time data.</p>
+                    </div>
+
+                    <!-- METERS + CHART + TERMINAL -->
+                    <div class="lg:col-span-2 space-y-4 flex flex-col">
+                        <!-- 9 Sensor Cards -->
+                        <div class="grid grid-cols-3 md:grid-cols-9 gap-2 flex-shrink-0">
+                            <div class="bg-[#020b14] p-2 rounded-2xl border border-nile-card text-center transition-all duration-300" id="card-ph">
+                                <p class="text-[9px] text-gray-400 uppercase font-bold mb-1">pH</p>
+                                <div class="text-xl digital-font alert-green" id="val-ph">7.40</div>
+                                <p class="text-[7px] text-gray-500 mt-1">6.5–8.5</p>
+                            </div>
+                            <div class="bg-[#020b14] p-2 rounded-2xl border border-nile-card text-center transition-all duration-300" id="card-do">
+                                <p class="text-[9px] text-gray-400 uppercase font-bold mb-1">DO</p>
+                                <div class="text-xl digital-font alert-green" id="val-do">7.2</div>
+                                <p class="text-[7px] text-gray-500 mt-1">&gt;4 mg/L</p>
+                            </div>
+                            <div class="bg-[#020b14] p-2 rounded-2xl border border-nile-card text-center transition-all duration-300" id="card-tur">
+                                <p class="text-[9px] text-gray-400 uppercase font-bold mb-1">Turb</p>
+                                <div class="text-xl digital-font alert-green" id="val-tur">8.0</div>
+                                <p class="text-[7px] text-gray-500 mt-1">&lt;50 NTU</p>
+                            </div>
+                            <div class="bg-[#020b14] p-2 rounded-2xl border border-nile-card text-center transition-all duration-300" id="card-ec">
+                                <p class="text-[9px] text-gray-400 uppercase font-bold mb-1">EC</p>
+                                <div class="text-xl digital-font alert-green" id="val-ec">180</div>
+                                <p class="text-[7px] text-gray-500 mt-1">&lt;800 µS</p>
+                            </div>
+                            <div class="bg-[#020b14] p-2 rounded-2xl border border-nile-card text-center transition-all duration-300" id="card-temp">
+                                <p class="text-[9px] text-gray-400 uppercase font-bold mb-1">Temp</p>
+                                <div class="text-xl digital-font alert-green" id="val-temp">21.0</div>
+                                <p class="text-[7px] text-gray-500 mt-1">10–35°C</p>
+                            </div>
+                            <div class="bg-[#020b14] p-2 rounded-2xl border border-nile-card text-center transition-all duration-300" id="card-tds">
+                                <p class="text-[9px] text-gray-400 uppercase font-bold mb-1">TDS</p>
+                                <div class="text-xl digital-font alert-green" id="val-tds">144</div>
+                                <p class="text-[7px] text-gray-500 mt-1">&lt;500 mg</p>
+                            </div>
+                            <div class="bg-[#020b14] p-2 rounded-2xl border border-nile-card text-center transition-all duration-300" id="card-hm">
+                                <p class="text-[9px] text-gray-400 uppercase font-bold mb-1">Metals</p>
+                                <div class="text-xl digital-font alert-green" id="val-hm">12</div>
+                                <p class="text-[7px] text-gray-500 mt-1">&lt;50 µg/L</p>
+                            </div>
+                            <div class="bg-[#020b14] p-2 rounded-2xl border border-nile-card text-center transition-all duration-300" id="card-ecoli">
+                                <p class="text-[9px] text-gray-400 uppercase font-bold mb-1">E.coli</p>
+                                <div class="text-xl digital-font alert-green" id="val-ecoli">80</div>
+                                <p class="text-[7px] text-gray-500 mt-1">&lt;200 CFU</p>
+                            </div>
+                            <div class="bg-[#020b14] p-2 rounded-2xl border border-nile-card text-center transition-all duration-300" id="card-mp">
+                                <p class="text-[9px] text-gray-400 uppercase font-bold mb-1">µPlastic</p>
+                                <div class="text-xl digital-font alert-green" id="val-mp">25</div>
+                                <p class="text-[7px] text-gray-500 mt-1">&lt;100 p/L</p>
+                            </div>
+                        </div>
+
+                        <!-- Sensor Health + TTI -->
+                        <div class="grid grid-cols-2 gap-3 flex-shrink-0">
+                            <div class="bg-[#020b14] p-3 rounded-xl border border-nile-card">
+                                <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-gray-400 font-bold">🔧 Sensor Health</span><span class="text-[10px] font-bold text-nile-cyan" id="health-val">100%</span></div>
+                                <div class="health-bar-bg"><div class="health-bar-fill bg-nile-cyan" id="health-bar" style="width:100%"></div></div>
+                                <button onclick="deployDrone()" class="mt-2 w-full text-[10px] py-1.5 rounded-lg bg-nile-cyan/10 border border-nile-cyan/30 text-nile-cyan hover:bg-nile-cyan/20 transition font-bold"><i class="fa-solid fa-helicopter mr-1"></i>Deploy Drone</button>
+                            </div>
+                            <div class="bg-[#020b14] p-3 rounded-xl border border-nile-card" id="tti-container" style="display:none">
+                                <div class="tti-overlay text-center">
+                                    <p class="text-[10px] text-red-400 font-bold">⏱ Time To Impact</p>
+                                    <div class="text-lg font-black text-red-400" id="tti-val">--</div>
+                                    <p class="text-[9px] text-gray-400" id="tti-target"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chart -->
+                        <div class="glass-card p-4 flex-grow flex flex-col" style="min-height:160px">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="text-sm font-bold text-white uppercase tracking-wider"><i class="fa-solid fa-chart-line text-nile-cyan mr-2"></i> Real-Time Trend (pH — DO — Turbidity)</h4>
+                                <span class="text-xs text-gray-500 font-mono" id="node-label-chart">Node 1 | Aswan</span>
+                            </div>
+                            <div class="relative flex-grow" style="min-height:140px">
+                                <canvas id="simComboChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Terminal + Controls -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 flex-shrink-0">
+                            <div class="terminal-log h-44 shadow-inner text-left" id="terminal-container" dir="ltr">
+                                <div class="text-[10px] text-nile-cyan font-mono mb-2"><i class="fa-solid fa-terminal"></i> EWS TERMINAL — DECA v2.0</div>
+                                <div id="log-content" class="font-mono text-xs"></div>
+                            </div>
+                            <div class="glass-card p-3 flex flex-col justify-center gap-1.5">
+                                <h4 class="text-[10px] font-bold text-gray-400 uppercase text-center">Incident Simulation — <span id="active-node-label" class="text-nile-cyan">Node 1</span></h4>
+                                <button onclick="triggerScenario('normal')" class="bg-nile-base hover:bg-nile-light text-white text-[10px] py-1.5 rounded-lg border border-gray-600 transition"><i class="fa-solid fa-check-circle text-green-400 mr-1"></i> Normal Flow</button>
+                                <button onclick="triggerScenario('industrial')" class="bg-red-900/20 hover:bg-red-900/50 text-red-100 text-[10px] py-1.5 rounded-lg border border-red-700/50 transition"><i class="fa-solid fa-skull-crossbones text-red-400 mr-1"></i> Industrial</button>
+                                <button onclick="triggerScenario('agricultural')" class="bg-yellow-900/20 hover:bg-yellow-900/50 text-yellow-100 text-[10px] py-1.5 rounded-lg border border-yellow-700/50 transition"><i class="fa-solid fa-seedling text-yellow-400 mr-1"></i> Agricultural</button>
+                                <button onclick="triggerScenario('municipal')" class="bg-green-900/20 hover:bg-green-900/50 text-green-100 text-[10px] py-1.5 rounded-lg border border-green-700/50 transition"><i class="fa-solid fa-bacteria text-green-400 mr-1"></i> Municipal (E.coli)</button>
+                                <button onclick="triggerScenario('plastic')" class="bg-purple-900/20 hover:bg-purple-900/50 text-purple-100 text-[10px] py-1.5 rounded-lg border border-purple-700/50 transition"><i class="fa-solid fa-bottle-water text-purple-400 mr-1"></i> Plastic</button>
+                                <div class="flex gap-1 mt-1">
+                                    <button onclick="setSeason('winter')" class="flex-1 text-[9px] py-1 rounded bg-blue-900/30 border border-blue-700/30 text-blue-300 hover:bg-blue-800/50 transition" id="btn-winter">Winter</button>
+                                    <button onclick="setSeason('spring')" class="flex-1 text-[9px] py-1 rounded bg-green-900/30 border border-green-700/30 text-green-300 hover:bg-green-800/50 transition" id="btn-spring">Spring</button>
+                                    <button onclick="setSeason('summer')" class="flex-1 text-[9px] py-1 rounded bg-orange-900/30 border border-orange-700/30 text-orange-300 hover:bg-orange-800/50 transition" id="btn-summer">Summer</button>
+                                    <button onclick="setSeason('autumn')" class="flex-1 text-[9px] py-1 rounded bg-yellow-900/30 border border-yellow-700/30 text-yellow-300 hover:bg-yellow-800/50 transition" id="btn-autumn">Autumn</button>
+                                </div>
+                                <div class="flex gap-1 mt-1">
+                                    <button onclick="toggleMute()" class="flex-1 text-[10px] py-1.5 rounded-lg bg-nile-card border border-nile-cyan/20 text-gray-300 hover:text-white transition" id="mute-btn"><i class="fa-solid fa-volume-high" id="mute-icon"></i> Sound</button>
+                                    <button onclick="activateEmergency()" class="flex-1 text-[10px] py-1.5 rounded-lg bg-red-900/30 border border-red-500/30 text-red-300 hover:bg-red-800/50 transition hidden" id="emergency-btn"><i class="fa-solid fa-shield"></i> Emergency 🔒</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 9. INTERACTIVE TOOLS                                          -->
+        <!-- ============================================================ -->
+        <section id="tools" class="spa-section">
+            <div class="py-6">
+                <div class="text-center mb-10">
+                    <h2 class="text-4xl font-black text-white mb-3"><span class="gradient-text">Interactive Tools</span></h2>
+                    <p class="text-gray-400">Simulation and analysis tools to explore Egypt's water security scenarios.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-7xl mx-auto">
+
+                    <!-- Smart Farm Optimizer -->
+                    <div class="tool-card border-t-4 border-t-nile-emerald">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 bg-nile-emerald/10 rounded-xl flex items-center justify-center text-nile-emerald text-2xl border border-nile-emerald/20"><i class="fa-solid fa-tractor"></i></div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Smart Farm Optimizer</h3>
+                                <p class="text-xs text-gray-400">Select crop and irrigation system</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 mb-4">
+                            <div><label class="text-xs text-gray-400 block mb-1">Crop</label><select id="farm-crop" class="w-full bg-nile-dark border border-nile-card text-white rounded-lg p-2 text-sm" onchange="updateFarm()">
+                                <option value="sugarcane">Sugarcane</option>
+                                <option value="wheat">Wheat</option>
+                                <option value="beet">Sugar Beet</option>
+                            </select></div>
+                            <div><label class="text-xs text-gray-400 block mb-1">Irrigation System</label><select id="farm-irr" class="w-full bg-nile-dark border border-nile-card text-white rounded-lg p-2 text-sm" onchange="updateFarm()">
+                                <option value="flood">Flood</option>
+                                <option value="sprinkler">Sprinkler</option>
+                                <option value="drip">Drip</option>
+                            </select></div>
+                        </div>
+                        <div style="height:180px"><canvas id="farmChart"></canvas></div>
+                    </div>
+
+                    <!-- Personal Water Calculator -->
+                    <div class="tool-card border-t-4 border-t-nile-blue">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 bg-nile-blue/10 rounded-xl flex items-center justify-center text-nile-blue text-2xl border border-nile-blue/20"><i class="fa-solid fa-shower"></i></div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Personal Water Calculator</h3>
+                                <p class="text-xs text-gray-400">Discover your daily usage vs. the national average</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div><label class="text-sm text-gray-300 flex justify-between"><span>Household Members</span><span id="calc-fam-val" class="text-nile-blue font-bold">4</span></label><input type="range" id="calc-fam" min="1" max="10" value="4" class="w-full accent-[#00d2ff]" oninput="updateCalc()"></div>
+                            <div><label class="text-sm text-gray-300 flex justify-between"><span>Shower Duration (minutes)</span><span id="calc-sh-val" class="text-nile-blue font-bold">8</span></label><input type="range" id="calc-sh" min="1" max="30" value="8" class="w-full accent-[#00d2ff]" oninput="updateCalc()"></div>
+                            <div><label class="text-sm text-gray-300 flex justify-between"><span>Laundry Loads / Week</span><span id="calc-lau-val" class="text-nile-blue font-bold">4</span></label><input type="range" id="calc-lau" min="1" max="14" value="4" class="w-full accent-[#00d2ff]" oninput="updateCalc()"></div>
+                            <div><label class="text-sm text-gray-300 flex justify-between"><span>Garden Watering (min/day)</span><span id="calc-gar-val" class="text-nile-blue font-bold">10</span></label><input type="range" id="calc-gar" min="0" max="60" value="10" class="w-full accent-[#00d2ff]" oninput="updateCalc()"></div>
+                        </div>
+                        <div class="mt-4 grid grid-cols-2 gap-3">
+                            <div class="bg-nile-dark p-3 rounded-xl border border-nile-card text-center">
+                                <p class="text-xs text-gray-400">Your Daily Usage</p>
+                                <div class="text-2xl font-black text-nile-blue" id="calc-daily">584</div>
+                                <p class="text-[10px] text-gray-500">Liters/Day</p>
+                            </div>
+                            <div class="bg-nile-dark p-3 rounded-xl border border-nile-card text-center">
+                                <p class="text-xs text-gray-400">National Average</p>
+                                <div class="text-2xl font-black text-nile-accent">350</div>
+                                <p class="text-[10px] text-gray-500">Liters/Day</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scarcity Projector -->
+                    <div class="tool-card border-t-4 border-t-nile-accent">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 bg-nile-accent/10 rounded-xl flex items-center justify-center text-nile-accent text-2xl border border-nile-accent/20"><i class="fa-solid fa-chart-line"></i></div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Water Scarcity Projector</h3>
+                                <p class="text-xs text-gray-400">Population scenarios vs. Nile share</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div><label class="text-sm text-gray-300 flex justify-between"><span>Population (million)</span><span id="scar-pop-val" class="text-nile-accent font-bold">110</span></label><input type="range" id="scar-pop" min="107" max="150" value="110" class="w-full accent-[#f39c12]" oninput="updateScarcity()"></div>
+                            <div><label class="text-sm text-gray-300 flex justify-between"><span>Nile Share (billion m³)</span><span id="scar-share-val" class="text-nile-accent font-bold">55.5</span></label><input type="range" id="scar-share" min="40" max="60" value="55.5" step="0.5" class="w-full accent-[#f39c12]" oninput="updateScarcity()"></div>
+                        </div>
+                        <div class="mt-4 p-4 bg-nile-dark rounded-xl border border-nile-card text-center">
+                            <p class="text-sm text-gray-400 mb-2">Annual Per-Capita Share</p>
+                            <div class="text-5xl font-black" id="scar-result" style="color:#f39c12">504</div>
+                            <p class="text-xs mt-1" id="scar-status" style="color:#ef4444">⚠ Below Absolute Water Scarcity Threshold</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Country Comparison -->
+                <div class="tool-card border-t-4 border-t-nile-plastic max-w-7xl mx-auto mt-6">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-nile-plastic/10 rounded-xl flex items-center justify-center text-nile-plastic text-2xl border border-nile-plastic/20"><i class="fa-solid fa-globe"></i></div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">International Comparison: Per-Capita Water Share</h3>
+                            <p class="text-xs text-gray-400">m³ / person / year — Egypt vs. the World</p>
+                        </div>
+                    </div>
+                    <div style="height:280px"><canvas id="comparisonChart"></canvas></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 7. ROADMAP & REFERENCES                                       -->
+        <!-- ============================================================ -->
+        <section id="roadmap_refs" class="spa-section">
+            <div class="py-6">
+                <div class="text-center mb-10">
+                    <h2 class="text-4xl font-black text-white mb-3">Roadmap & <span class="gradient-text">Strategic Recommendations</span></h2>
+                    <p class="text-gray-400">The scientific and engineering vision derived from research for 2026 and beyond.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto mb-12">
+                    <div class="bg-nile-dark p-6 rounded-2xl border border-nile-cyan/30 flex items-start gap-4 hover:border-nile-cyan transition hover:-translate-y-1">
+                        <div class="w-14 h-14 shrink-0 rounded-full bg-nile-cyan/10 text-nile-cyan flex items-center justify-center text-2xl"><i class="fa-solid fa-network-wired"></i></div>
+                        <div>
+                            <h4 class="text-base font-bold text-white mb-2">1. Expand Smart Monitoring</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">Establish a unified network by deploying more than <strong class="text-nile-cyan">500 IoT nodes</strong> along the river and its branches, linked to a national early warning center supporting real-time decision-making.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-nile-dark p-6 rounded-2xl border border-nile-accent/30 flex items-start gap-4 hover:border-nile-accent transition hover:-translate-y-1">
+                        <div class="w-14 h-14 shrink-0 rounded-full bg-nile-accent/10 text-nile-accent flex items-center justify-center text-2xl"><i class="fa-solid fa-gavel"></i></div>
+                        <div>
+                            <h4 class="text-base font-bold text-white mb-2">2. Industrial Discharge Governance (Art. 85)</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">Actual implementation of Article 85 of Law 147/2021 by requiring factory licenses to have internal treatment plants connected to the Ministry of Irrigation.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-nile-dark p-6 rounded-2xl border border-nile-emerald/30 flex items-start gap-4 hover:border-nile-emerald transition hover:-translate-y-1">
+                        <div class="w-14 h-14 shrink-0 rounded-full bg-nile-emerald/10 text-nile-emerald flex items-center justify-center text-2xl"><i class="fa-solid fa-microscope"></i></div>
+                        <div>
+                            <h4 class="text-base font-bold text-white mb-2">3. Localize Biosensor Manufacturing</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">Encourage national research to produce biosensors locally at low cost for detecting heavy metals and pesticides, reducing import dependency.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-nile-dark p-6 rounded-2xl border border-nile-plastic/30 flex items-start gap-4 hover:border-nile-plastic transition hover:-translate-y-1">
+                        <div class="w-14 h-14 shrink-0 rounded-full bg-nile-plastic/10 text-nile-plastic flex items-center justify-center text-2xl"><i class="fa-solid fa-recycle"></i></div>
+                        <div>
+                            <h4 class="text-base font-bold text-white mb-2">4. Circular Economy & Plastics</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">Launch initiatives such as "Very Nile" for recycling plastics extracted from the Nile, and integrate computer vision technologies to detect floating waste.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-nile-dark p-6 rounded-2xl border border-blue-400/30 flex items-start gap-4 hover:border-blue-400 transition hover:-translate-y-1">
+                        <div class="w-14 h-14 shrink-0 rounded-full bg-blue-400/10 text-blue-400 flex items-center justify-center text-2xl"><i class="fa-solid fa-seedling"></i></div>
+                        <div>
+                            <h4 class="text-base font-bold text-white mb-2">5. Accelerate Canal Lining & Smart Irrigation</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">Complete the 20,000 km within 5 years with accessible financing mechanisms to convert smallholder farmers to drip irrigation and integrate IoT for irrigation scheduling.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-nile-dark p-6 rounded-2xl border border-red-400/30 flex items-start gap-4 hover:border-red-400 transition hover:-translate-y-1">
+                        <div class="w-14 h-14 shrink-0 rounded-full bg-red-400/10 text-red-400 flex items-center justify-center text-2xl"><i class="fa-solid fa-satellite"></i></div>
+                        <div>
+                            <h4 class="text-base font-bold text-white mb-2">6. Periodic Legislative Review</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">Review Law 48/1982 every 5 years to accommodate emerging pollutants (pharmaceutical compounds, microplastics) and mandate satellite monitoring.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-divider"><span class="bg-nile-base px-4 text-gray-400 text-sm font-bold tracking-widest uppercase"><i class="fa-solid fa-book mr-2"></i> Student Contributions <i class="fa-solid fa-book ml-2"></i></span></div>
+
+                <div class="mb-8 text-center bg-nile-dark/40 p-6 rounded-2xl border border-nile-cyan/20 max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 group hover:border-nile-cyan/50 transition">
+                    <div class="text-left">
+                        <h3 class="text-lg font-bold text-white mb-1"><i class="fa-solid fa-folder-open text-nile-cyan mr-2"></i> Student Research</h3>
+                        <p class="text-xs text-gray-400">Google Drive</p>
+                    </div>
+                    <a href="https://drive.google.com/drive/folders/19MLY5gnGC-QiNdcSgtjzHdrzQ3WfXJpo-1PdZnYTQ-i5Jk83VE3ZgS1A92K67O4BYLIkQFrg?usp=drive_link" target="_blank"
+                        class="shrink-0 flex items-center gap-2 bg-nile-cyan/10 border border-nile-cyan/40 text-nile-cyan px-6 py-3 rounded-xl hover:bg-nile-cyan hover:text-nile-dark transition font-bold shadow-[0_0_15px_rgba(100,255,218,0.1)] hover:shadow-[0_0_25px_rgba(100,255,218,0.5)]">
+                        <i class="fa-brands fa-google-drive text-xl"></i>
+                        Open Folder (Google Drive)
+                    </a>
+                </div>
+
+                <div class="section-divider"><span class="bg-nile-base px-4 text-gray-400 text-sm font-bold tracking-widest uppercase"><i class="fa-solid fa-book mr-2"></i> Academic References (APA 7th) <i class="fa-solid fa-book ml-2"></i></span></div>
+
+                <div class="glass-card p-8 max-w-5xl mx-auto">
+                    <h3 class="text-xl font-bold text-white border-b border-nile-card pb-3 mb-5 text-left"><i class="fa-solid fa-book-open text-nile-cyan mr-2"></i> Arabic References & Laws</h3>
+                    <ul class="list-disc list-inside space-y-4 text-sm text-gray-300 leading-relaxed text-left mb-10" dir="ltr">
+                        <li>Central Agency for Public Mobilization and Statistics. (2024). <em>Water Resources and Irrigation Bulletin in Egypt: Indicators and Prospects</em>. Cairo, Egypt.</li>
+                        <li>Arab Republic of Egypt. (1982). <em>Law No. 48 of 1982 on Protection of the Nile River and Waterways from Pollution and its Executive Regulations and Amendments</em>. Official Gazette.</li>
+                        <li>Arab Republic of Egypt. (2021). <em>Law No. 147 of 2021 Issuing the Water Resources and Irrigation Law</em>. Official Gazette.</li>
+                        <li>Arab Republic of Egypt. (2020). <em>Law No. 202 of 2020 on Waste Management</em>. Official Gazette.</li>
+                        <li>Ministry of Water Resources and Irrigation. (2024). <em>Annual Report on Canal Lining Projects and Modern Irrigation Transition Progress</em>. Cairo, Egypt.</li>
+                        <li>Egyptian Presidency. (2024). <em>Bahr El-Baqar Wastewater Treatment Station: Technical Data and Achievements</em>. Cairo.</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold text-white border-b border-nile-card pb-3 mb-5 text-left" dir="ltr"><i class="fa-solid fa-globe text-nile-cyan mr-2"></i> English &amp; Academic Sources</h3>
+                    <ul class="list-disc list-inside space-y-4 text-sm text-gray-300 leading-relaxed text-left font-sans" dir="ltr">
+                        <li>Chowdury, M. S. U., Emran, T. B., Ghosh, S., et al. (2019). IoT based real-time river water quality monitoring system. <em>Procedia Computer Science</em>, 155, 161–168.</li>
+                        <li>Essamlali, I., Nhaila, H., &amp; El Khaili, M. (2024). Advances in machine learning and IoT for water quality monitoring: A comprehensive review. <em>Heliyon</em>, 10(6), e27920.</li>
+                        <li>Hassan, M., et al. (2025). IoT-Based Water Quality Monitoring Systems for the Nile River. <em>Journal of Environmental Engineering &amp; Technology</em>.</li>
+                        <li>Heggy, E., Sharkawy, Z., &amp; Abotalib, A. Z. (2021). Egypt's water budget deficit and suggested mitigation policies for the GERD filling scenarios. <em>Environmental Research Letters</em>, 16(7), 074022.</li>
+                        <li>Mourad, K. A., et al. (2025). Economic viability of irrigation canal lining in Upper Egypt: A benefit-cost analysis. <em>AQUA—Water Infrastructure, Ecosystems and Society</em>.</li>
+                        <li>Okafor, G., et al. (2025). Assessment of industrial pollution and water quality in the Nile River using GIS-based indices at Aswan, Egypt. <em>Scientific Reports</em>, 15.</li>
+                        <li>Lekmine, G., et al. (2024). Smart water quality monitoring with IoT wireless sensor networks. <em>Sensors</em>, 24(9), 2871.</li>
+                        <li>Soliman, M. F., &amp; Esmail, M. (2021). Past and future trends of Egypt's water consumption and its sources. <em>Nature Communications</em>, 12, 4508.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 8. TEAM                                                       -->
+        <!-- ============================================================ -->
+        <section id="team" class="spa-section">
+            <div class="py-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-black text-white mb-3">Research <span class="text-purple-400">Team</span></h2>
+                    <p class="text-gray-400">A group of researchers from the Faculty of Engineering — Damanhour University who prepared this project.</p>
+                </div>
+
+                <div class="max-w-7xl mx-auto">
+                    <!-- Developers -->
+                    <div class="mb-16">
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-bold text-nile-cyan border-b border-nile-cyan/20 pb-3 inline-block px-8">
+                                <i class="fa-solid fa-code mr-2"></i> Web Development
+                            </h3>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <a href="https://www.linkedin.com/in/moamen-sakr-21b13125b/" target="_blank"
+                                class="block bg-nile-dark/80 p-6 rounded-2xl border border-nile-cyan/20 hover:border-nile-cyan hover:-translate-y-2 transition duration-300 text-center shadow-lg group relative overflow-hidden">
+                                <div class="absolute top-3 right-4 text-nile-cyan opacity-40 group-hover:opacity-100 transition"><i class="fa-brands fa-linkedin text-xl"></i></div>
+                                <div class="team-img-wrapper dev group-hover:scale-105 transition"><img src="./moamen.jpg" alt="Moamen" class="team-img" onerror="this.src='https://via.placeholder.com/150/020b14/64ffda?text=M'"></div>
+                                <h4 class="text-white font-bold text-sm mb-3 h-10 flex items-center justify-center">Moamen Mohamed Fawzy Ahmed Sakr</h4>
+                                <div class="flex flex-col gap-2 text-xs text-gray-400 border-t border-nile-cyan/10 pt-3"><span class="text-nile-cyan font-bold"><i class="fa-solid fa-satellite-dish mr-1"></i>Communications & Electronics Engineering</span></div>
+                            </a>
+                            <a href="https://www.linkedin.com/in/mohamed-samir-220620359/" target="_blank"
+                                class="block bg-nile-dark/80 p-6 rounded-2xl border border-nile-cyan/20 hover:border-nile-cyan hover:-translate-y-2 transition duration-300 text-center shadow-lg group relative overflow-hidden">
+                                <div class="absolute top-3 right-4 text-nile-cyan opacity-40 group-hover:opacity-100 transition"><i class="fa-brands fa-linkedin text-xl"></i></div>
+                                <div class="team-img-wrapper dev group-hover:scale-105 transition"><img src="./mohamed.jpg" alt="Mohamed" class="team-img" onerror="this.src='https://via.placeholder.com/150/020b14/64ffda?text=M'"></div>
+                                <h4 class="text-white font-bold text-sm mb-3 h-10 flex items-center justify-center">Mohamed Samir Khamis Mustafa</h4>
+                                <div class="flex flex-col gap-2 text-xs text-gray-400 border-t border-nile-cyan/10 pt-3"><span class="text-nile-cyan font-bold"><i class="fa-solid fa-satellite-dish mr-1"></i>Communications & Electronics Engineering</span></div>
+                            </a>
+                            <a href="https://www.linkedin.com/in/ibrahim-elsanhoury-80735326b/" target="_blank"
+                                class="block bg-nile-dark/80 p-6 rounded-2xl border border-nile-cyan/20 hover:border-nile-cyan hover:-translate-y-2 transition duration-300 text-center shadow-lg group relative overflow-hidden">
+                                <div class="absolute top-3 right-4 text-nile-cyan opacity-40 group-hover:opacity-100 transition"><i class="fa-brands fa-linkedin text-xl"></i></div>
+                                <div class="team-img-wrapper dev group-hover:scale-105 transition"><img src="./ibrahim.jpg" alt="Ibrahim" class="team-img" onerror="this.src='https://via.placeholder.com/150/020b14/64ffda?text=I'"></div>
+                                <h4 class="text-white font-bold text-sm mb-3 h-10 flex items-center justify-center">Ibrahim Mohamed Ibrahim El-Sanhoury</h4>
+                                <div class="flex flex-col gap-2 text-xs text-gray-400 border-t border-nile-cyan/10 pt-3"><span class="text-nile-cyan font-bold"><i class="fa-solid fa-bolt mr-1"></i>Electrical Power Engineering</span></div>
+                            </a>
+                            <a href="https://www.linkedin.com/in/nada120/" target="_blank"
+                                class="block bg-nile-dark/80 p-6 rounded-2xl border border-nile-cyan/20 hover:border-nile-cyan hover:-translate-y-2 transition duration-300 text-center shadow-lg group relative overflow-hidden">
+                                <div class="absolute top-3 right-4 text-nile-cyan opacity-40 group-hover:opacity-100 transition"><i class="fa-brands fa-linkedin text-xl"></i></div>
+                                <div class="team-img-wrapper dev group-hover:scale-105 transition"><img src="./nada.jpg" alt="Nada" class="team-img" onerror="this.src='https://via.placeholder.com/150/020b14/64ffda?text=N'"></div>
+                                <h4 class="text-white font-bold text-sm mb-3 h-10 flex items-center justify-center">Nada Abdelhameed Ragab Abdelhameed</h4>
+                                <div class="flex flex-col gap-2 text-xs text-gray-400 border-t border-nile-cyan/10 pt-3"><span class="text-nile-cyan font-bold"><i class="fa-solid fa-satellite-dish mr-1"></i>Communications & Electronics Engineering</span></div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Data Handling -->
+                    <div class="mb-16">
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-bold text-purple-400 border-b border-purple-400/20 pb-3 inline-block px-8">
+                                <i class="fa-solid fa-database mr-2"></i> Data Handling
+                            </h3>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <a href="https://www.linkedin.com/in/ashrakt-eldefrawy-8a18a3332/" target="_blank"
+                                class="block bg-nile-dark/80 p-6 rounded-2xl border border-purple-500/20 hover:border-purple-400 hover:-translate-y-2 transition duration-300 text-center shadow-lg group relative overflow-hidden">
+                                <div class="absolute top-3 right-4 text-purple-400 opacity-40 group-hover:opacity-100 transition"><i class="fa-brands fa-linkedin text-xl"></i></div>
+                                <div class="team-img-wrapper data group-hover:scale-105 transition"><img src="./ashraqat.jpg" alt="Ashraqat" class="team-img" onerror="this.src='https://via.placeholder.com/150/020b14/c084fc?text=A'"></div>
+                                <h4 class="text-white font-bold text-sm mb-3 h-10 flex items-center justify-center">Ashraqt Abd Alhady Aboeagila Eldefrawy</h4>
+                                <div class="flex flex-col gap-2 text-xs text-gray-400 border-t border-purple-500/10 pt-3"><span class="text-purple-400 font-bold"><i class="fa-solid fa-gear mr-1"></i>Mechanical Power Engineering</span></div>
+                            </a>
+                            <a href="#"
+                                class="block bg-nile-dark/80 p-6 rounded-2xl border border-purple-500/20 hover:border-purple-400 hover:-translate-y-2 transition duration-300 text-center shadow-lg group relative overflow-hidden">
+                                <div class="absolute top-3 right-4 text-purple-400 opacity-40 group-hover:opacity-100 transition"><i class="fa-brands fa-linkedin text-xl"></i></div>
+                                <div class="team-img-wrapper data group-hover:scale-105 transition"><img src="./menna.jpg" alt="Menna Allah" class="team-img" onerror="this.src='https://via.placeholder.com/150/020b14/c084fc?text=M'"></div>
+                                <h4 class="text-white font-bold text-sm mb-3 h-10 flex items-center justify-center">Menna Hassan Ahmed</h4>
+                                <div class="flex flex-col gap-2 text-xs text-gray-400 border-t border-purple-500/10 pt-3"><span class="text-purple-400 font-bold"><i class="fa-solid fa-satellite-dish mr-1"></i>Communications & Electronics Engineering</span></div>
+                            </a>
+                            <a href="https://www.linkedin.com/in/aya-safwat-7a941a379/" target="_blank"
+                                class="block bg-nile-dark/80 p-6 rounded-2xl border border-purple-500/20 hover:border-purple-400 hover:-translate-y-2 transition duration-300 text-center shadow-lg group relative overflow-hidden">
+                                <div class="absolute top-3 right-4 text-purple-400 opacity-40 group-hover:opacity-100 transition"><i class="fa-brands fa-linkedin text-xl"></i></div>
+                                <div class="team-img-wrapper data group-hover:scale-105 transition"><img src="./aya_safwat.jpg" alt="Aya" class="team-img" onerror="this.src='https://via.placeholder.com/150/020b14/c084fc?text=A'"></div>
+                                <h4 class="text-white font-bold text-sm mb-3 h-10 flex items-center justify-center">Aya Safwat Mohamed Mashaly</h4>
+                                <div class="flex flex-col gap-2 text-xs text-gray-400 border-t border-purple-500/10 pt-3"><span class="text-purple-400 font-bold"><i class="fa-solid fa-satellite-dish mr-1"></i>Communications & Electronics Engineering</span></div>
+                            </a>
+                            <a href="https://www.linkedin.com/in/amal-abdo-6a746a36a/" target="_blank"
+                                class="block bg-nile-dark/80 p-6 rounded-2xl border border-purple-500/20 hover:border-purple-400 hover:-translate-y-2 transition duration-300 text-center shadow-lg group relative overflow-hidden">
+                                <div class="absolute top-3 right-4 text-purple-400 opacity-40 group-hover:opacity-100 transition"><i class="fa-brands fa-linkedin text-xl"></i></div>
+                                <div class="team-img-wrapper data group-hover:scale-105 transition"><img src="./amal.jpg" alt="Amal" class="team-img" onerror="this.src='https://via.placeholder.com/150/020b14/c084fc?text=A'"></div>
+                                <h4 class="text-white font-bold text-sm mb-3 h-10 flex items-center justify-center">Amaal Mostafa Abdo</h4>
+                                <div class="flex flex-col gap-2 text-xs text-gray-400 border-t border-purple-500/10 pt-3"><span class="text-purple-400 font-bold"><i class="fa-solid fa-satellite-dish mr-1"></i>Communications & Electronics Engineering</span></div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Research -->
+                    <div class="mb-10">
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-bold text-nile-accent border-b border-nile-accent/20 pb-3 inline-block px-8">
+                                <i class="fa-solid fa-magnifying-glass mr-2"></i> Research
+                            </h3>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <a href="https://www.linkedin.com/in/ahmed-ghaly-93a745383/" target="_blank"
+                                class="block bg-nile-dark/80 p-6 rounded-2xl border border-nile-accent/20 hover:border-nile-accent hover:-translate-y-2 transition duration-300 text-center shadow-lg group relative overflow-hidden">
+                                <div class="absolute top-3 right-4 text-nile-accent opacity-40 group-hover:opacity-100 transition"><i class="fa-brands fa-linkedin text-xl"></i></div>
+                                <div class="team-img-wrapper search group-hover:scale-105 transition"><img src="./ahmed.jpg" alt="Ahmed" class="team-img" onerror="this.src='https://via.placeholder.com/150/020b14/f39c12?text=A'"></div>
+                                <h4 class="text-white font-bold text-sm mb-3 h-10 flex items-center justify-center">Ahmed Mohamed Ibrahim Ghaly</h4>
+                                <div class="flex flex-col gap-2 text-xs text-gray-400 border-t border-nile-accent/10 pt-3"><span class="text-nile-accent font-bold"><i class="fa-solid fa-bolt mr-1"></i>Electrical Power Engineering</span></div>
+                            </a>
+                            <a href="https://www.linkedin.com/in/aya-elaw-992ab23b0/?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+                                class="block bg-nile-dark/80 p-6 rounded-2xl border border-nile-accent/20 hover:border-nile-accent hover:-translate-y-2 transition duration-300 text-center shadow-lg group relative overflow-hidden">
+                                <div class="absolute top-3 right-4 text-nile-accent opacity-40 group-hover:opacity-100 transition"><i class="fa-brands fa-linkedin text-xl"></i></div>
+                                <div class="team-img-wrapper search group-hover:scale-105 transition"><img src="./aya_elaw.jpg" alt="Aya" class="team-img" onerror="this.src='https://via.placeholder.com/150/020b14/f39c12?text=A'"></div>
+                                <h4 class="text-white font-bold text-sm mb-3 h-10 flex items-center justify-center">Aya Mohammed Mahdy Elaw</h4>
+                                <div class="flex flex-col gap-2 text-xs text-gray-400 border-t border-nile-accent/10 pt-3"><span class="text-nile-accent font-bold"><i class="fa-solid fa-gear mr-1"></i>Mechanical Power Engineering</span></div>
+                            </a>
+                            <a href="https://www.linkedin.com/in/rasha-elsherbeny-68666a405/?skipRedirect=true"
+                                class="block bg-nile-dark/80 p-6 rounded-2xl border border-nile-accent/20 hover:border-nile-accent hover:-translate-y-2 transition duration-300 text-center shadow-lg group relative overflow-hidden">
+                                <div class="absolute top-3 right-4 text-nile-accent opacity-40 group-hover:opacity-100 transition"><i class="fa-brands fa-linkedin text-xl"></i></div>
+                                <div class="team-img-wrapper search group-hover:scale-105 transition"><img src="./rasha.jpg" alt="Rasha" class="team-img" onerror="this.src='https://via.placeholder.com/150/020b14/f39c12?text=R'"></div>
+                                <h4 class="text-white font-bold text-sm mb-3 h-10 flex items-center justify-center">Rasha Nagah Elshrbeny</h4>
+                                <div class="flex flex-col gap-2 text-xs text-gray-400 border-t border-nile-accent/10 pt-3"><span class="text-nile-accent font-bold"><i class="fa-solid fa-gear mr-1"></i>Mechanical Power Engineering</span></div>
+                            </a>
+                            <a href="https://www.linkedin.com/in/alaa-khalifa-318b19398/?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+                                class="block bg-nile-dark/80 p-6 rounded-2xl border border-nile-accent/20 hover:border-nile-accent hover:-translate-y-2 transition duration-300 text-center shadow-lg group relative overflow-hidden">
+                                <div class="absolute top-3 right-4 text-nile-accent opacity-40 group-hover:opacity-100 transition"><i class="fa-brands fa-linkedin text-xl"></i></div>
+                                <div class="team-img-wrapper search group-hover:scale-105 transition"><img src="./alaa.jpg" alt="Alaa" class="team-img" onerror="this.src='https://via.placeholder.com/150/020b14/f39c12?text=A'"></div>
+                                <h4 class="text-white font-bold text-sm mb-3 h-10 flex items-center justify-center">Alaa Mohamed Khalifa</h4>
+                                <div class="flex flex-col gap-2 text-xs text-gray-400 border-t border-nile-accent/10 pt-3"><span class="text-nile-accent font-bold"><i class="fa-solid fa-helmet-safety mr-1"></i>Civil Engineering</span></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-[#020b14] border-t border-nile-card py-6 text-center mt-auto">
+        <p class="text-xs text-gray-500 font-bold tracking-wider">This research application was prepared for the DECA platform — Faculty of Engineering — Damanhour University © 2026</p>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script src="./script.js"></script>
+    <script>
+        function switchToArabic() {
+            // Preserve current tab when switching back
+            const activeNav = document.querySelector('.nav-btn.active');
+            const currentTab = activeNav ? activeNav.dataset.target : 'main_home';
+            const theme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
+            window.location.href = './index.html?tab=' + currentTab + '&theme=' + theme;
+        }
+        function toggleTheme() {
+            const isLight = document.body.classList.toggle('light-mode');
+            localStorage.setItem('deca-theme', isLight ? 'light' : 'dark');
+            document.getElementById('themeIcon').className = isLight ? 'fa-solid fa-moon text-base' : 'fa-solid fa-sun text-base';
+            document.getElementById('themeLabel').textContent = isLight ? 'Dark' : 'Light';
+        }
+        // Apply saved theme on load
+        (function () {
+            const params = new URLSearchParams(location.search);
+            const urlTheme = params.get('theme');
+            const saved = urlTheme || localStorage.getItem('deca-theme') || 'dark';
+            if (saved === 'light') {
+                document.body.classList.add('light-mode');
+                document.addEventListener('DOMContentLoaded', function () {
+                    const icon = document.getElementById('themeIcon');
+                    const label = document.getElementById('themeLabel');
+                    if (icon) icon.className = 'fa-solid fa-moon text-base';
+                    if (label) label.textContent = 'Dark';
+                });
+            }
+            // On page load, check if a tab was passed via URL
+            const tab = params.get('tab');
+            if (tab) {
+                const targetBtn = document.querySelector('.nav-btn[data-target="' + tab + '"]');
+                if (targetBtn) {
+                    setTimeout(() => targetBtn.click(), 100);
+                }
+            }
+        })();
+    </script>
+</body>
+
+</html>
